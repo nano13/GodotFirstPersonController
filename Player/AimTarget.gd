@@ -35,10 +35,10 @@ func look_at_safe(point: Vector3, normal: Vector3) -> void:
 		up = Vector3.UP
 	
 	var normal_abs: Vector3 = abs(normal)
-	var normal_up: Vector3 = abs(up)
-	if (round(normal_abs.x * 1000) == round(normal_up.x * 1000) and
-	 round(normal_abs.y * 1000) == round(normal_up.y * 1000) and
-	 round(normal_abs.z * 1000) == round(normal_up.z * 1000)):
+	var up_abs: Vector3 = abs(up)
+	if (round(normal_abs.x * 1000) == round(up_abs.x * 1000) and
+	 round(normal_abs.y * 1000) == round(up_abs.y * 1000) and
+	 round(normal_abs.z * 1000) == round(up_abs.z * 1000)):
 		up = Vector3.UP
 	
 	look_at(point - normal, up)
