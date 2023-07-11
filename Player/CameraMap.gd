@@ -3,13 +3,15 @@ class_name CameraMap extends Camera3D
 @export_range(0.1, 9.25, 0.05, "or_greater") var camera_sens: float = 4
 
 @onready var camera_fp: Camera3D = get_node("%CameraFPC")
-@onready var player_body: CSGSphere3D = get_node("%VisibleBody")
+#@onready var player_body: CSGSphere3D = get_node("%VisibleBody")
+@onready var player_body: Node3D = get_node("%mannequiny")
 
 var look_dir: Vector2 # Input direction for look/aim
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	player_body.hide()
+	pass
 
 func _input(event: InputEvent) -> void:
 	#if event is InputEventMouseMotion: look_dir = event.relative * 0.01
