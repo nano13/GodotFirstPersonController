@@ -45,4 +45,5 @@ func _process(delta):
 			var object = get_collider()
 			if object.is_in_group("impact_sphere"):
 				get_tree().get_root().remove_child(object)
+				object.queue_free()
 		

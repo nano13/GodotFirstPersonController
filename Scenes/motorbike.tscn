@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://cpeh5n4ulqfj8"]
+
+[ext_resource type="PackedScene" uid="uid://dck06ghcdj5yp" path="res://Assets/Suzuki.blend" id="1_lcgws"]
+[ext_resource type="Script" path="res://Scenes/motorbike.gd" id="1_mxhhi"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2ni4f"]
+radius = 0.352626
+height = 2.4451
+
+[node name="Motorbike" type="CharacterBody3D"]
+script = ExtResource("1_mxhhi")
+
+[node name="Suzuki" parent="." instance=ExtResource("1_lcgws")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0.109857)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.909457, 0.355951, 0)
+shape = SubResource("CapsuleShape3D_2ni4f")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.980864, 0.966013, 0)
+shape = SubResource("CapsuleShape3D_2ni4f")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.711568, 1.73535, 0)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(-4.1809e-08, -0.291804, 0.956478, -1.27552e-08, 0.956478, 0.291804, -1, 8.88178e-16, -4.37114e-08, -0.141937, 0.965648, 0)
+light_energy = 100.0
+spot_range = 100.0
+spot_angle = 35.0
+spot_angle_attenuation = 4.0
