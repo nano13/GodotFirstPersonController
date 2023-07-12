@@ -1,10 +1,10 @@
 [gd_scene load_steps=2 format=3 uid="uid://8pj82nx76wfx"]
 
-[ext_resource type="PackedScene" uid="uid://dpdni8wh0hmft" path="res://Assets/mannequiny-0.3.0.glb" id="1_hkdq8"]
+[ext_resource type="PackedScene" uid="uid://dpdni8wh0hmft" path="res://Assets/mannequiny-0.3.0.glb" id="1_lcxs4"]
 
 [node name="mannequiny" type="Node3D"]
 
-[node name="mannequiny-0_3_0" parent="." instance=ExtResource("1_hkdq8")]
+[node name="mannequiny-0_3_0" parent="." instance=ExtResource("1_lcxs4")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
 [node name="Skeleton3D" type="Skeleton3D" parent="mannequiny-0_3_0"]

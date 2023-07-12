@@ -29,6 +29,7 @@ func _process(delta):
 		
 		if is_colliding():
 			var impact_sphere = CSGSphere3D.new()
+			impact_sphere.add_to_group("impact_sphere")
 			#add_child(impact_sphere)
 			get_tree().get_root().add_child(impact_sphere)
 			
@@ -38,6 +39,10 @@ func _process(delta):
 			impact_sphere.show()
 			
 			impact_sphere.set_use_collision(true)
-			for i in range(1, 32):
-				impact_sphere.set_collision_mask_value(i, true)
+			impact_sphere.set_collision_mask_value(1, true)
+	if Input.is_action_just_pressed("fire_tertiary"):
+		if is_colliding():
+			var object = get_collider()
+			if object.is_in_group("impact_sphere"):
+				get_tree().get_root().remove_child(object)
 		
