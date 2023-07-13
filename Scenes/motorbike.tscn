@@ -1,55 +1,76 @@
-[gd_scene load_steps=7 format=3 uid="uid://cpeh5n4ulqfj8"]
+[gd_scene load_steps=8 format=3 uid="uid://cpeh5n4ulqfj8"]
 
-[ext_resource type="Script" path="res://Scenes/motorbike.gd" id="1_ub611"]
-[ext_resource type="PackedScene" uid="uid://dck06ghcdj5yp" path="res://Assets/Suzuki.blend" id="2_88s2m"]
-[ext_resource type="Script" path="res://Scenes/Camera3DMotorbike.gd" id="3_uyy1f"]
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2ni4f"]
-radius = 0.352626
-height = 2.4451
+[ext_resource type="Script" path="res://Scenes/Motorbike.gd" id="1_bbyx0"]
+[ext_resource type="PackedScene" uid="uid://dck06ghcdj5yp" path="res://Assets/Suzuki.blend" id="2_n2lkm"]
+[ext_resource type="Script" path="res://Scenes/Camera3DMotorbike.gd" id="3_33rb5"]
+[ext_resource type="Script" path="res://Scenes/SpotLight3DMotorbike.gd" id="4_wwxum"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kcw31"]
 radius = 0.261702
 height = 0.897486
 
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2ni4f"]
+radius = 0.352626
+height = 2.41795
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_ecjq4"]
-size = Vector3(2.45702, 1, 0.933677)
+size = Vector3(2.61341, 1, 1.06614)
 
-[node name="Motorbike" type="CharacterBody3D"]
-script = ExtResource("1_ub611")
+[node name="Motorbike" type="VehicleBody3D"]
+script = ExtResource("1_bbyx0")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1.91069e-15, 4.37114e-08, -1, 1, -4.37114e-08, 0, -4.37114e-08, -1, -4.37114e-08, 0.00143474, 0.355951, 0)
-shape = SubResource("CapsuleShape3D_2ni4f")
+[node name="Suzuki" parent="." instance=ExtResource("2_n2lkm")]
+transform = Transform3D(-6.55671e-08, 0, -1.5, 0, 1.5, 0, 1.5, 0, -6.55671e-08, -0.10748, 0, -0.913058)
+
+[node name="CollisionShape3DHead" type="CollisionShape3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00321764, 1.24921, 7.33137e-05)
+shape = SubResource("CapsuleShape3D_kcw31")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
 transform = Transform3D(1.91069e-15, 4.37114e-08, -1, 1, -4.37114e-08, 0, -4.37114e-08, -1, -4.37114e-08, 0.0061298, 0.966013, 0)
 shape = SubResource("CapsuleShape3D_2ni4f")
 
-[node name="CollisionShape3D3" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00321764, 1.24921, 7.33137e-05)
-shape = SubResource("CapsuleShape3D_kcw31")
-
-[node name="Suzuki" parent="." instance=ExtResource("2_88s2m")]
-transform = Transform3D(-6.55671e-08, 0, -1.5, 0, 1.5, 0, 1.5, 0, -6.55671e-08, -0.10748, 0, -0.913058)
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="."]
+transform = Transform3D(1.91069e-15, 4.37114e-08, -1, 1, -4.37114e-08, 0, -4.37114e-08, -1, -4.37114e-08, -0.00323421, 0.51126, 0)
+shape = SubResource("CapsuleShape3D_2ni4f")
 
 [node name="Camera3DMotorbike" type="Camera3D" parent="."]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00318015, 1.53614, 0)
-script = ExtResource("3_uyy1f")
+script = ExtResource("3_33rb5")
 
-[node name="SpotLight3D" type="SpotLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.956305, 0.292372, 0, -0.292372, 0.956305, 0.00260545, 0.965648, 0)
+[node name="SpotLight3DMotorbike" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.956305, 0.292372, 0, -0.292372, 0.956305, 0.00260545, 0.965648, -1.09393)
 light_energy = 100.0
 spot_range = 100.0
 spot_angle = 35.0
 spot_angle_attenuation = 4.0
+script = ExtResource("4_wwxum")
 
 [node name="Area3D" type="Area3D" parent="."]
 
 [node name="CollisionShape3D4" type="CollisionShape3D" parent="Area3D"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.00423431, 0.893219, 0)
 shape = SubResource("BoxShape3D_ecjq4")
+
+[node name="VehicleWheel3DFront" type="VehicleWheel3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0172803, 0.348661, -0.849293)
+use_as_steering = true
+wheel_radius = 0.4
+suspension_stiffness = 40.0
+damping_compression = 1.9
+damping_relaxation = 2.0
+
+[node name="VehicleWheel3DRear" type="VehicleWheel3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00249386, 0.340972, 0.822779)
+use_as_traction = true
+wheel_radius = 0.4
+suspension_stiffness = 40.0
+damping_compression = 1.9
+damping_relaxation = 2.0
 
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
 [connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]
