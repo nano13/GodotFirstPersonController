@@ -6,8 +6,8 @@
 [ext_resource type="Script" path="res://Scenes/SpotLight3DMotorbike.gd" id="4_wwxum"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kcw31"]
-radius = 0.261702
-height = 0.897486
+radius = 0.346736
+height = 1.24328
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2ni4f"]
 radius = 0.352626
@@ -24,7 +24,7 @@ transform = Transform3D(-6.55671e-08, 0, -1.5, 0, 1.5, 0, 1.5, 0, -6.55671e-08, 
 
 [node name="CollisionShape3DHead" type="CollisionShape3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00321764, 1.24921, 7.33137e-05)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00321764, 1.07123, 7.33137e-05)
 shape = SubResource("CapsuleShape3D_kcw31")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
@@ -71,6 +71,14 @@ wheel_radius = 0.4
 suspension_stiffness = 40.0
 damping_compression = 1.9
 damping_relaxation = 2.0
+
+[node name="VehicleWheel3D" type="VehicleWheel3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.00042, 0.507316, 0)
+suspension_stiffness = 80.0
+
+[node name="VehicleWheel3D2" type="VehicleWheel3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.00094, 0.507316, 0)
+suspension_stiffness = 80.0
 
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
 [connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]

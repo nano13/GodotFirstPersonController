@@ -101,7 +101,7 @@ func calculate_lean():
 		
 		if bas_x.y > 0.001 or bas_x.y < -0.001:
 			#print("falling left")
-			angular_velocity = Vector3(angular_velocity.x, angular_velocity.y, -angular_velocity.z)
+			#angular_velocity = Vector3(angular_velocity.x, angular_velocity.y, -angular_velocity.z)
 			#angular_velocity = lerp(angular_velocity, Vector3(angular_velocity.x, angular_velocity.y, -bas_x.y), .8)
 			#angular_velocity = lerp(angular_velocity, -transform.basis.z * -0.0, 1)
 			#print(transform.basis.z)
