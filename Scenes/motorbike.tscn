@@ -1,9 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://cpeh5n4ulqfj8"]
+[gd_scene load_steps=11 format=3 uid="uid://cpeh5n4ulqfj8"]
 
 [ext_resource type="Script" path="res://Scenes/Motorbike.gd" id="1_bbyx0"]
-[ext_resource type="PackedScene" uid="uid://dck06ghcdj5yp" path="res://Assets/Suzuki.blend" id="2_n2lkm"]
 [ext_resource type="Script" path="res://Scenes/Camera3DMotorbike.gd" id="3_33rb5"]
 [ext_resource type="Script" path="res://Scenes/SpotLight3DMotorbike.gd" id="4_wwxum"]
+[ext_resource type="PackedScene" uid="uid://3genr5akjgoh" path="res://Models/suzuki_motorbike.blend" id="5_800q8"]
+[ext_resource type="Material" uid="uid://caix441d5osw7" path="res://Materials/suzuki_motorbike/Carbon Black.tres" id="6_8s6tx"]
+[ext_resource type="Material" uid="uid://d1ajm8qliayjp" path="res://Materials/suzuki_motorbike/Material.017.tres" id="7_vf6ge"]
+[ext_resource type="Material" uid="uid://cbn7h3mndtysj" path="res://Materials/suzuki_motorbike/Material.021.tres" id="7_wiyrx"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kcw31"]
 radius = 0.346736
@@ -18,9 +21,6 @@ size = Vector3(2.61341, 1, 1.06614)
 
 [node name="Motorbike" type="VehicleBody3D"]
 script = ExtResource("1_bbyx0")
-
-[node name="Suzuki" parent="." instance=ExtResource("2_n2lkm")]
-transform = Transform3D(-6.55671e-08, 0, -1.5, 0, 1.5, 0, 1.5, 0, -6.55671e-08, -0.10748, 0, -0.913058)
 
 [node name="CollisionShape3DHead" type="CollisionShape3D" parent="."]
 unique_name_in_owner = true
@@ -41,7 +41,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00318015, 1.53614, 0)
 script = ExtResource("3_33rb5")
 
 [node name="SpotLight3DMotorbike" type="SpotLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.956305, 0.292372, 0, -0.292372, 0.956305, 0.00260545, 0.965648, -1.09393)
+transform = Transform3D(1, 0, 0, 0, 0.956305, 0.292372, 0, -0.292372, 0.956305, 0.00260545, 1.01026, -0.967465)
 light_energy = 100.0
 spot_range = 100.0
 spot_angle = 35.0
@@ -80,5 +80,15 @@ suspension_stiffness = 80.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.00094, 0.507316, 0)
 suspension_stiffness = 80.0
 
+[node name="suzuki_motorbike" parent="." instance=ExtResource("5_800q8")]
+transform = Transform3D(-6.55671e-08, 0, -1.5, 0, 1.5, 0, 1.5, 0, -6.55671e-08, -0.107, 0, -0.913)
+
+[node name="right" parent="suzuki_motorbike" index="0"]
+surface_material_override/0 = ExtResource("6_8s6tx")
+surface_material_override/9 = ExtResource("7_wiyrx")
+surface_material_override/10 = ExtResource("7_vf6ge")
+
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
 [connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]
+
+[editable path="suzuki_motorbike"]

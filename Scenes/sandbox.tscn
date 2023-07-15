@@ -20,6 +20,8 @@ albedo_texture = ExtResource("2_h0gpr")
 metallic_specular = 0.0
 roughness = 0.1
 roughness_texture = ExtResource("2_h0gpr")
+anisotropy = 1.0
+ao_light_affect = 1.0
 uv1_triplanar = true
 
 [node name="World" type="Node3D"]
