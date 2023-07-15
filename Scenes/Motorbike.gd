@@ -12,6 +12,7 @@ var is_active: bool = false
 var is_player_in_range: bool = false
 
 var is_crashed: bool = false
+var is_recovering: bool = false
 
 @onready var camera_moto: Camera3D = get_node("%Camera3DMotorbike")
 @onready var camera_fpc: Camera3D = get_node("%CameraFPC")
@@ -43,18 +44,23 @@ func _integrate_forces(state):
 		pass
 
 func _physics_process(delta):
-	determine_if_crashed()
-	freeze_if_not_used_and_crashed()
-	#disable_player_head_if_no_player()
+	if is_recovering:
+		recover_motorbike()
+	else:
+		determine_if_crashed()
+		freeze_if_not_used_and_crashed()
+		#disable_player_head_if_no_player()
+		
+		#calculate_lean()
+		calculate_steering(delta)
+		
+		if Input.is_action_just_pressed("use"):
+			if is_active:
+				exit_motorbike()
+			elif is_player_in_range:
+				enter_motorbike()
 	
-	#calculate_lean()
-	calculate_steering(delta)
 	
-	if Input.is_action_just_pressed("use"):
-		if is_active:
-			exit_motorbike()
-		elif is_player_in_range:
-			enter_motorbike()
 
 func determine_if_crashed():
 	# if laying too much on its side
@@ -83,6 +89,16 @@ func disable_player_head_if_no_player():
 		player_head.disabled = false
 
 func calculate_lean():
+	# 0 if upgright, 1 or -1 if laying on the ground on its side
+	if transform.basis.x.y > 0.1:
+		#print("falling left")
+		#print(angular_velocity)
+		angular_velocity = Vector3(angular_velocity.x, angular_velocity.y, -angular_velocity.z)
+	elif transform.basis.x.y < -0.1:
+		#print("falling right")
+		angular_velocity = Vector3(angular_velocity.x, angular_velocity.y, -angular_velocity.z)
+
+func calculate_lean_old():
 	#var basis_z: Vector3 = global_transform.basis.y
 	#print(basis_z)
 	#global_transform.basis.y = Vector3(basis_z.x, 1, basis_z.z)
@@ -158,6 +174,8 @@ func calculate_steering(delta: float):
 			set_brake(0)
 
 func _process(delta):
+	#if is_recovering:
+	#	recover_motorbike()
 	pass
 
 func _on_area_3d_body_entered(body):
@@ -174,8 +192,48 @@ func enter_motorbike():
 		camera_moto.current = true
 		is_active = true
 		player.on_deactivate()
+	else:
+		is_recovering = true
+		
+		var ray: CrosshairRay = player.get_node("CShapeHead/CameraFPC/CollisionRayCrosshair")
+		ray.set_clicks_enabled(false)
 
 func exit_motorbike():
 	camera_moto.current = false
 	is_active = false
 	player.on_activate()
+
+func recover_motorbike():
+	var ray: CrosshairRay = player.get_node("CShapeHead/CameraFPC/CollisionRayCrosshair")
+	
+	if ray.is_colliding():
+		var collision_point := ray.get_collision_point()
+		
+		set_freeze_enabled(true)
+		
+		transform.basis.x.x = 1
+		transform.basis.x.y = 0
+		transform.basis.x.z = 0
+		
+		transform.basis.y.x = 0
+		transform.basis.y.y = 1
+		transform.basis.y.z = 0
+		
+		transform.basis.z.x = 0
+		transform.basis.z.y = 0
+		transform.basis.z.z = 1
+		
+		if collision_point.distance_to(player.position) > 1.5:
+			position = Vector3(collision_point.x, collision_point.y + .5, collision_point.z)
+		else:
+			#print("aaaaa")
+			pass
+		
+		if Input.is_action_just_pressed("fire_primary"):
+			is_crashed = false
+			is_recovering = false
+			
+			set_freeze_enabled(false)
+			
+			ray.set_clicks_enabled(true)
+		

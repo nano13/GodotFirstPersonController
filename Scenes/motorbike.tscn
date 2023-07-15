@@ -17,10 +17,18 @@ radius = 0.352626
 height = 2.41795
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ecjq4"]
-size = Vector3(2.61341, 1, 1.06614)
+size = Vector3(2.61341, 1.20412, 1.06614)
 
 [node name="Motorbike" type="VehicleBody3D"]
 script = ExtResource("1_bbyx0")
+
+[node name="suzuki_motorbike" parent="." instance=ExtResource("5_800q8")]
+transform = Transform3D(-6.55671e-08, 0, -1.5, 0, 1.5, 0, 1.5, 0, -6.55671e-08, -0.0933791, 0, -0.913)
+
+[node name="right" parent="suzuki_motorbike" index="0"]
+surface_material_override/0 = ExtResource("6_8s6tx")
+surface_material_override/9 = ExtResource("7_wiyrx")
+surface_material_override/10 = ExtResource("7_vf6ge")
 
 [node name="CollisionShape3DHead" type="CollisionShape3D" parent="."]
 unique_name_in_owner = true
@@ -41,17 +49,22 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00318015, 1.53614, 0)
 script = ExtResource("3_33rb5")
 
 [node name="SpotLight3DMotorbike" type="SpotLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.956305, 0.292372, 0, -0.292372, 0.956305, 0.00260545, 1.01026, -0.967465)
+transform = Transform3D(1, 0, 0, 0, 0.956305, 0.292372, 0, -0.292372, 0.956305, 0.00260545, 1.01026, -0.92679)
 light_energy = 100.0
 spot_range = 100.0
 spot_angle = 35.0
 spot_angle_attenuation = 4.0
 script = ExtResource("4_wwxum")
 
+[node name="OmniLight3D" type="OmniLight3D" parent="SpotLight3DMotorbike"]
+light_energy = 2.0
+light_indirect_energy = 2.0
+light_volumetric_fog_energy = 2.0
+
 [node name="Area3D" type="Area3D" parent="."]
 
 [node name="CollisionShape3D4" type="CollisionShape3D" parent="Area3D"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.00423431, 0.893219, 0)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.00423431, 0.731949, 0)
 shape = SubResource("BoxShape3D_ecjq4")
 
 [node name="VehicleWheel3DFront" type="VehicleWheel3D" parent="."]
@@ -71,22 +84,6 @@ wheel_radius = 0.4
 suspension_stiffness = 40.0
 damping_compression = 1.9
 damping_relaxation = 2.0
-
-[node name="VehicleWheel3D" type="VehicleWheel3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.00042, 0.507316, 0)
-suspension_stiffness = 80.0
-
-[node name="VehicleWheel3D2" type="VehicleWheel3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.00094, 0.507316, 0)
-suspension_stiffness = 80.0
-
-[node name="suzuki_motorbike" parent="." instance=ExtResource("5_800q8")]
-transform = Transform3D(-6.55671e-08, 0, -1.5, 0, 1.5, 0, 1.5, 0, -6.55671e-08, -0.107, 0, -0.913)
-
-[node name="right" parent="suzuki_motorbike" index="0"]
-surface_material_override/0 = ExtResource("6_8s6tx")
-surface_material_override/9 = ExtResource("7_wiyrx")
-surface_material_override/10 = ExtResource("7_vf6ge")
 
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
 [connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]
