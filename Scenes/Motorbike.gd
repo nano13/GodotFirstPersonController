@@ -39,11 +39,13 @@ func _ready():
 
 func _integrate_forces(state):
 	if is_active:
-		calculate_lean()
+		#calculate_lean()
+		pass
 
 func _physics_process(delta):
-	sleep_if_not_used_and_crashed()
-	disable_player_head_if_no_player()
+	determine_if_crashed()
+	freeze_if_not_used_and_crashed()
+	#disable_player_head_if_no_player()
 	
 	#calculate_lean()
 	calculate_steering(delta)
@@ -53,12 +55,18 @@ func _physics_process(delta):
 			exit_motorbike()
 		elif is_player_in_range:
 			enter_motorbike()
-	
-	
 
-func sleep_if_not_used_and_crashed():
+func determine_if_crashed():
+	# if laying too much on its side
+	# additionally check for is_active, because it might be possible to lean that much into a curve without issues
+	if not is_active and abs(transform.basis.x.y) > 0.5:
+		is_crashed = true
+
+func freeze_if_not_used_and_crashed():
 	if wheel_front.is_in_contact() and wheel_rear.is_in_contact() and not is_active and not is_crashed:
-		set_freeze_enabled(true)
+		# if moto lays too much on its side, we consider it crashed and don't freeze
+		if abs(transform.basis.x.y) < 0.5:
+			set_freeze_enabled(true)
 	#elif sleeping:
 	elif is_active:
 		set_freeze_enabled(false)
@@ -162,9 +170,10 @@ func _on_area_3d_body_exited(body):
 		is_player_in_range = false
 
 func enter_motorbike():
-	camera_moto.current = true
-	is_active = true
-	player.on_deactivate()
+	if not is_crashed:
+		camera_moto.current = true
+		is_active = true
+		player.on_deactivate()
 
 func exit_motorbike():
 	camera_moto.current = false
