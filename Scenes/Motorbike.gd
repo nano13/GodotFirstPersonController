@@ -40,7 +40,7 @@ func _ready():
 
 func _integrate_forces(state):
 	if is_active:
-		#calculate_lean()
+		calculate_lean()
 		pass
 
 func _physics_process(delta):
@@ -161,11 +161,11 @@ func calculate_steering(delta: float):
 		#var steer_mult: float = (1 / 1.5)**(abs(rpm)/40) + .05 #* 0.4
 		#var steer_mult: float = (1 / 1.5)**(abs(rpm)/400) + .05 #* 0.4
 		#print("mult: ", steer_mult)
-		steering = lerp(steering, Input.get_axis("move_right", "move_left") * 0.4, 5 * delta)
+		steering = lerp(steering, Input.get_axis("vehicle_right", "vehicle_left") * 0.4, 5 * delta)
 		#steering = lerp(steering, Input.get_axis("move_right", "move_left") * steer_mult, 2 * delta)
 		#print("steer: ", steering)
 		
-		var acceleration: float = Input.get_axis("move_forward", "move_backward")
+		var acceleration: float = Input.get_axis("vehicle_accelerate", "vehicle_decelerate")
 		wheel_rear.engine_force = acceleration * torque_min * ( 1 - rpm / max_rpm)
 		
 		if Input.is_action_pressed("jump_default"):
