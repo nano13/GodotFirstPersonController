@@ -14,7 +14,7 @@ var is_player_in_range: bool = false
 var is_crashed: bool = false
 var is_recovering: bool = false
 
-@onready var camera_moto: Camera3D = get_node("%Camera3DMotorbike")
+@onready var camera_moto: Camera3D = get_node("%Camera3DSuzuki")
 @onready var camera_fpc: Camera3D = get_node("%CameraFPC")
 
 @onready var player: CharacterBody3D = get_node("%Player")
