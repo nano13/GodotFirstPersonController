@@ -80,11 +80,19 @@ light_energy = 3.076
 light_indirect_energy = 0.0
 light_volumetric_fog_energy = 0.0
 
-[node name="Area3D" type="Area3D" parent="."]
+[node name="Area3PlayerEnter" type="Area3D" parent="."]
 
-[node name="CollisionShape3D4" type="CollisionShape3D" parent="Area3D"]
+[node name="CollisionShape3DPlayerEnter" type="CollisionShape3D" parent="Area3PlayerEnter"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.00423431, 0.731949, 0)
 shape = SubResource("BoxShape3D_ecjq4")
+
+[node name="Area3DCrash" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.586655, 0)
+
+[node name="CollisionPolygon3DCrash" type="CollisionPolygon3D" parent="Area3DCrash"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.13644, 0.0114981)
+depth = 2.2
+polygon = PackedVector2Array(-0.0222536, 0.614661, -0.460205, 0.514834, -0.276502, -0.538079, 0.272724, -0.538079, 0.438239, 0.521274)
 
 [node name="VehicleWheel3DFront" type="VehicleWheel3D" parent="."]
 unique_name_in_owner = true
@@ -104,7 +112,8 @@ suspension_stiffness = 40.0
 damping_compression = 1.9
 damping_relaxation = 2.0
 
-[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
-[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]
+[connection signal="body_entered" from="Area3PlayerEnter" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Area3PlayerEnter" to="." method="_on_area_3d_body_exited"]
+[connection signal="body_shape_entered" from="Area3DCrash" to="." method="_on_area_3d_crash_body_shape_entered"]
 
 [editable path="suzuki_motorbike"]

@@ -8,11 +8,12 @@ var torque_min = 100
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
-var is_active: bool = false
 var is_player_in_range: bool = false
 
 var is_crashed: bool = false
 var is_recovering: bool = false
+
+var axis_left_right: float = 0
 
 @onready var camera_moto: Camera3D = get_node("%Camera3DSuzuki")
 @onready var camera_fpc: Camera3D = get_node("%CameraFPC")
@@ -25,7 +26,7 @@ var is_recovering: bool = false
 @onready var wheel_rear: VehicleWheel3D = get_node("%VehicleWheel3DRear")
 
 func _ready():
-	print("ready")
+	pass
 	
 	#set_can_sleep(true)
 	
@@ -39,15 +40,16 @@ func _ready():
 	#axis_lock_angular_z = true
 
 func _integrate_forces(state):
-	if is_active:
+	if camera_moto.current:
 		calculate_lean()
 		pass
 
 func _physics_process(delta):
+	axis_left_right = Input.get_axis("vehicle_right", "vehicle_left")
+	
 	if is_recovering:
 		recover_motorbike()
 	else:
-		determine_if_crashed()
 		freeze_if_not_used_and_crashed()
 		#disable_player_head_if_no_player()
 		
@@ -55,26 +57,19 @@ func _physics_process(delta):
 		calculate_steering(delta)
 		
 		if Input.is_action_just_pressed("use"):
-			if is_active:
+			if camera_moto.current:
 				exit_motorbike()
 			elif is_player_in_range:
 				enter_motorbike()
-	
-	
 
-func determine_if_crashed():
-	# if laying too much on its side
-	# additionally check for is_active, because it might be possible to lean that much into a curve without issues
-	if not is_active and abs(transform.basis.x.y) > 0.5:
-		is_crashed = true
 
 func freeze_if_not_used_and_crashed():
-	if wheel_front.is_in_contact() and wheel_rear.is_in_contact() and not is_active and not is_crashed:
+	if wheel_front.is_in_contact() and wheel_rear.is_in_contact() and not camera_moto.current and not is_crashed:
 		# if moto lays too much on its side, we consider it crashed and don't freeze
 		if abs(transform.basis.x.y) < 0.5:
 			set_freeze_enabled(true)
 	#elif sleeping:
-	elif is_active:
+	elif camera_moto.current:
 		set_freeze_enabled(false)
 		#linear_velocity = Vector3.ZERO
 		#angular_velocity = Vector3.ZERO
@@ -83,20 +78,26 @@ func freeze_if_not_used_and_crashed():
 	#print(linear_velocity)
 
 func disable_player_head_if_no_player():
-	if not is_active:
+	if not camera_moto.current:
 		player_head.disabled = true
 	else:
 		player_head.disabled = false
 
 func calculate_lean():
+	#print(axis_left_right, angular_velocity.z)
+	angular_velocity = Vector3(angular_velocity.x, angular_velocity.y, axis_left_right)
+	"""
 	# 0 if upgright, 1 or -1 if laying on the ground on its side
 	if transform.basis.x.y > 0.1:
 		#print("falling left")
 		#print(angular_velocity)
-		angular_velocity = Vector3(angular_velocity.x, angular_velocity.y, -angular_velocity.z)
+		#angular_velocity = Vector3(angular_velocity.x, angular_velocity.y, -angular_velocity.z)
+		angular_velocity = Vector3(angular_velocity.x, angular_velocity.y, -angular_velocity.z * axis_left_right * 1)
 	elif transform.basis.x.y < -0.1:
 		#print("falling right")
-		angular_velocity = Vector3(angular_velocity.x, angular_velocity.y, -angular_velocity.z)
+		#angular_velocity = Vector3(angular_velocity.x, angular_velocity.y, -angular_velocity.z)
+		angular_velocity = Vector3(angular_velocity.x, angular_velocity.y, -angular_velocity.z * axis_left_right * 1)
+	"""
 
 func calculate_lean_old():
 	#var basis_z: Vector3 = global_transform.basis.y
@@ -153,7 +154,7 @@ func calculate_lean_old():
 	#print("a ", angular_velocity)
 
 func calculate_steering(delta: float):
-	if is_active:
+	if camera_moto.current:
 		var rpm: float = clamp(wheel_rear.get_rpm(), -1 * max_rpm, 0)
 		#print("rpm: ", rpm)
 		
@@ -161,7 +162,9 @@ func calculate_steering(delta: float):
 		#var steer_mult: float = (1 / 1.5)**(abs(rpm)/40) + .05 #* 0.4
 		#var steer_mult: float = (1 / 1.5)**(abs(rpm)/400) + .05 #* 0.4
 		#print("mult: ", steer_mult)
-		steering = lerp(steering, Input.get_axis("vehicle_right", "vehicle_left") * 0.4, 5 * delta)
+		
+		#steering = lerp(steering, Input.get_axis("vehicle_right", "vehicle_left") * 0.4, 5 * delta)
+		
 		#steering = lerp(steering, Input.get_axis("move_right", "move_left") * steer_mult, 2 * delta)
 		#print("steer: ", steering)
 		
@@ -190,7 +193,6 @@ func _on_area_3d_body_exited(body):
 func enter_motorbike():
 	if not is_crashed:
 		camera_moto.current = true
-		is_active = true
 		player.on_deactivate()
 	else:
 		is_recovering = true
@@ -200,7 +202,6 @@ func enter_motorbike():
 
 func exit_motorbike():
 	camera_moto.current = false
-	is_active = false
 	player.on_activate()
 
 func recover_motorbike():
@@ -237,3 +238,8 @@ func recover_motorbike():
 			
 			ray.set_clicks_enabled(true)
 		
+
+func _on_area_3d_crash_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
+	if body.name != "Player" and body.name != "Motorbike":
+		print(body, ": crashed by polygon")
+		is_crashed = true
