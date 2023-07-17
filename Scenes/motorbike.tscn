@@ -42,12 +42,10 @@ shape = SubResource("CapsuleShape3D_kcw31")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
 transform = Transform3D(1.91069e-15, 4.37114e-08, -1, 1, -4.37114e-08, 0, -4.37114e-08, -1, -4.37114e-08, 0.0061298, 0.966013, 0)
-visible = false
 shape = SubResource("CapsuleShape3D_2ni4f")
 
 [node name="CollisionShape3D5" type="CollisionShape3D" parent="."]
 transform = Transform3D(1.91069e-15, 4.37114e-08, -1, 1, -4.37114e-08, 0, -4.37114e-08, -1, -4.37114e-08, -0.00323421, 0.51126, 0)
-visible = false
 shape = SubResource("CapsuleShape3D_2ni4f")
 
 [node name="Camera3DSuzuki" type="Camera3D" parent="."]

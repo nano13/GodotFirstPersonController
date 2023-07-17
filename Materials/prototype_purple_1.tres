@@ -1,0 +1,12 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://dtsqtfgsnjm34"]
+
+[ext_resource type="Texture2D" uid="uid://bh3nih216jdfc" path="res://addons/kenney_prototype_textures/purple/texture_01.png" id="1_4bmpm"]
+
+[resource]
+albedo_color = Color(0.490196, 0.490196, 0.490196, 1)
+albedo_texture = ExtResource("1_4bmpm")
+metallic_specular = 0.0
+roughness = 0.1
+roughness_texture = ExtResource("1_4bmpm")
+uv1_triplanar = true
+uv1_world_triplanar = true

@@ -1,0 +1,11 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://b6yf16s4nvlle"]
+
+[ext_resource type="Texture2D" uid="uid://bywnhmtr24wkw" path="res://addons/kenney_prototype_textures/blue/texture_01.png" id="1_payyu"]
+
+[resource]
+albedo_texture = ExtResource("1_payyu")
+metallic_specular = 0.0
+roughness = 0.1
+roughness_texture = ExtResource("1_payyu")
+uv1_triplanar = true
+uv1_world_triplanar = true
