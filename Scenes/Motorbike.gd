@@ -1,9 +1,10 @@
 class_name Motorbike extends VehicleBody3D
 
 # https://www.b3dassets.com/2022/09/03/blender-motorcycle-3d-model-library/
+# https://www.youtube.com/watch?v=uKpO2X6wj4A
 
 var max_rpm = 600
-var torque_min = 100
+var torque_min = 160
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -27,17 +28,6 @@ var axis_left_right: float = 0
 
 func _ready():
 	pass
-	
-	#set_can_sleep(true)
-	
-	# aufbäumen, kann umfallen
-	#axis_lock_angular_x = true
-	
-	# kann nicht lenken
-	#axis_lock_angular_y = true
-	
-	# kein aufbäumen, kann umfallen
-	#axis_lock_angular_z = true
 
 func _integrate_forces(state):
 	if camera_moto.current:
@@ -45,7 +35,7 @@ func _integrate_forces(state):
 		pass
 
 func _physics_process(delta):
-	axis_left_right = Input.get_axis("vehicle_right", "vehicle_left")
+	axis_left_right = Input.get_axis("move_right", "move_left")
 	
 	if is_recovering:
 		recover_motorbike()
@@ -53,7 +43,6 @@ func _physics_process(delta):
 		freeze_if_not_used_and_crashed()
 		#disable_player_head_if_no_player()
 		
-		#calculate_lean()
 		calculate_steering(delta)
 		
 		if Input.is_action_just_pressed("use"):
@@ -84,95 +73,21 @@ func disable_player_head_if_no_player():
 		player_head.disabled = false
 
 func calculate_lean():
-	#print(axis_left_right, angular_velocity.z)
-	angular_velocity = Vector3(angular_velocity.x, angular_velocity.y, axis_left_right)
-	"""
-	# 0 if upgright, 1 or -1 if laying on the ground on its side
-	if transform.basis.x.y > 0.1:
-		#print("falling left")
-		#print(angular_velocity)
-		#angular_velocity = Vector3(angular_velocity.x, angular_velocity.y, -angular_velocity.z)
-		angular_velocity = Vector3(angular_velocity.x, angular_velocity.y, -angular_velocity.z * axis_left_right * 1)
-	elif transform.basis.x.y < -0.1:
-		#print("falling right")
-		#angular_velocity = Vector3(angular_velocity.x, angular_velocity.y, -angular_velocity.z)
-		angular_velocity = Vector3(angular_velocity.x, angular_velocity.y, -angular_velocity.z * axis_left_right * 1)
-	"""
-
-func calculate_lean_old():
-	#var basis_z: Vector3 = global_transform.basis.y
-	#print(basis_z)
-	#global_transform.basis.y = Vector3(basis_z.x, 1, basis_z.z)
-	
-	var bas_x: Vector3 = global_transform.basis.x
-	#print(bas_x)
-	#global_transform.basis.x = Vector3(bas_x.x, 0, bas_x.z)
-	
-	var bas_y: Vector3 = global_transform.basis.y
-	#print(bas_y.y)
-	
-	#var bas_z: Vector3 = global_transform.basis.z
-	
-	# hold moto from falling sideways, unless it has flipped over forwards before
-	if bas_y.y > 0 and not is_crashed:
-		#var up = move_toward(0, bas_x.y, delta)
-		#global_transform.basis.x = Vector3(bas_x.x, 0, bas_x.z)
-		#print(bas_x.y)
-		
-		var steer: float = Input.get_axis("move_right", "move_left") * 0.4
-		
-		#print(bas_x.y)
-		#print(transform.basis.x)
-		
-		if bas_x.y > 0.001 or bas_x.y < -0.001:
-			#print("falling left")
-			#angular_velocity = Vector3(angular_velocity.x, angular_velocity.y, -angular_velocity.z)
-			#angular_velocity = lerp(angular_velocity, Vector3(angular_velocity.x, angular_velocity.y, -bas_x.y), .8)
-			#angular_velocity = lerp(angular_velocity, -transform.basis.z * -0.0, 1)
-			#print(transform.basis.z)
-			pass
-		"""
-		if bas_x.y < -0.001:
-			print("falling right")
-			#angular_velocity = Vector3(angular_velocity.x, angular_velocity.y, -angular_velocity.z)
-			#angular_velocity = lerp(angular_velocity, Vector3(angular_velocity.x, angular_velocity.y, -bas_x.y), .8)
-			angular_velocity = lerp(angular_velocity, -transform.basis.z, 1)
-		"""
-		
-		#print(angular_velocity.z)
-		#print("a ", angular_velocity)
-		#angular_velocity = Vector3(angular_velocity.x, angular_velocity.y, 0)
-		#angular_velocity = Vector3.ZERO
-		#angular_velocity = angular_velocity
-		#angular_velocity = lerp(angular_velocity, -transform.basis.z, 0.1)
-		#angular_velocity = lerp(angular_velocity, Vector3(angular_velocity.x, angular_velocity.y, 0), 0.1)
-		#linear_velocity = Vector3.UP
-		#angular_velocity = Vector3(0, 0, 0)
-	else:
-		is_crashed = true
-	
-	#print("a ", angular_velocity)
+	angular_velocity = lerp(angular_velocity, -transform.basis.z*-axis_left_right, 1)
+	steering = lerp(steering, rotation.z/2, 1)
 
 func calculate_steering(delta: float):
 	if camera_moto.current:
 		var rpm: float = clamp(wheel_rear.get_rpm(), -1 * max_rpm, 0)
-		#print("rpm: ", rpm)
-		
-		# we want to get the steering softer the faster we go
-		#var steer_mult: float = (1 / 1.5)**(abs(rpm)/40) + .05 #* 0.4
-		#var steer_mult: float = (1 / 1.5)**(abs(rpm)/400) + .05 #* 0.4
-		#print("mult: ", steer_mult)
 		
 		#steering = lerp(steering, Input.get_axis("vehicle_right", "vehicle_left") * 0.4, 5 * delta)
-		
-		#steering = lerp(steering, Input.get_axis("move_right", "move_left") * steer_mult, 2 * delta)
-		#print("steer: ", steering)
+		#####steering = lerp(steering, Input.get_axis("move_right", "move_left") * 0.4, 5 * delta)
 		
 		var acceleration: float = Input.get_axis("vehicle_accelerate", "vehicle_decelerate")
 		wheel_rear.engine_force = acceleration * torque_min * ( 1 - rpm / max_rpm)
 		
 		if Input.is_action_pressed("jump_default"):
-			set_brake(2)
+			set_brake(20)
 		if Input.is_action_just_released("jump_default"):
 			set_brake(0)
 
@@ -241,5 +156,5 @@ func recover_motorbike():
 
 func _on_area_3d_crash_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
 	if body.name != "Player" and body.name != "Motorbike":
-		print(body, ": crashed by polygon")
-		is_crashed = true
+		print("crashed by polygon: ", body)
+		#is_crashed = true
