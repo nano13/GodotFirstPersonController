@@ -4,7 +4,7 @@ class_name Motorbike extends VehicleBody3D
 # https://www.youtube.com/watch?v=uKpO2X6wj4A
 
 var max_rpm = 600
-var torque_min = 160
+var torque_min = 1600
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -26,15 +26,21 @@ var axis_left_right: float = 0
 @onready var wheel_front: VehicleWheel3D = get_node("%VehicleWheel3DFront")
 @onready var wheel_rear: VehicleWheel3D = get_node("%VehicleWheel3DRear")
 
+@onready var test: CSGCylinder3D = get_node("Node3D/CSGCylinder3Daiaaa")
+
 func _ready():
 	pass
+	#mass = 300
 
 func _integrate_forces(state):
+	# only move the bike when we are "sitting on it"
 	if camera_moto.current:
 		calculate_lean()
 		pass
 
 func _physics_process(delta):
+	# for some reason Input.get_axis will not work properly if called from _integrate_forces
+	# but we need to use it there, so we put it into a variable here
 	axis_left_right = Input.get_axis("move_right", "move_left")
 	
 	if is_recovering:
@@ -43,7 +49,7 @@ func _physics_process(delta):
 		freeze_if_not_used_and_crashed()
 		#disable_player_head_if_no_player()
 		
-		calculate_steering(delta)
+		calculate_acceleration(delta)
 		
 		if Input.is_action_just_pressed("use"):
 			if camera_moto.current:
@@ -73,10 +79,75 @@ func disable_player_head_if_no_player():
 		player_head.disabled = false
 
 func calculate_lean():
-	angular_velocity = lerp(angular_velocity, -transform.basis.z*-axis_left_right, 1)
-	steering = lerp(steering, rotation.z/2, 1)
+	print()
+	# use our axis_left_right input to turn the wheel
+	var speed: float = linear_velocity.length()
+	# to make it more realistic, the faster we go, the less we can turn the wheel
+	var steerdamp: float = clamp(speed, 2, 50)
+	var turn: float = axis_left_right / steerdamp
+	# smooth out our steering movements
+	var steer: float = lerp(steering, turn, .1)
+	
+	# calculate turning radius
+	# 1.5 is the distance between the wheels in meter
+	# steering is the angle of the wheel in radians
+	var radius: float = ( 1.5 / sin(steer) )
+	
+	# calculate the needed inclination angle theta
+	var theta: float = atan(speed**2 / (gravity * radius))
+	
+	test.rotation.z = lerp(test.rotation.z, theta + PI/2, 1)
+	
+	# https://www.youtube.com/watch?v=uKpO2X6wj4A
+	#angular_velocity = lerp(angular_velocity, transform.basis.z * axis_left_right, 1)
+	#steering = lerp(steering, rotation.z/2, 1)
+	steering = steer
+	
+	print("angular_velocity: ", angular_velocity)
+	
+	# https://docs.godotengine.org/en/stable/tutorials/physics/rigid_body.html
+	# as our motorbike is a VehicleBody3D derived from RigidBody3D,
+	# we can not just manipulate e.g. rotation.z to apply the angle theta,
+	# but we need to use angular_velocity instead with some extra calculations
+	#rotation.z = theta #axis_left_right
+	var up = Vector3(0, 0, 1)
+	#angular_velocity = lerp(angular_velocity, Vector3(angular_velocity.x, angular_velocity.y, theta), 1)
+	#angular_velocity = calc_angular_velocity_between_basises(basis, Quaternion(basis.rotated(Vector3(0, 0, 1), theta)))
+	angular_velocity = lerp(rotation, rotation.rotated(Vector3(0, 0, 1), theta), 1)
+	
+	#print("speed: ", speed)
+	#print("transform.basis.z: ", transform.basis.z)
+	print("theta: ", theta)
+	#print("rotation: ", rotation)
+	#print("angular_velocity: ", angular_velocity)
+	
+	#print(rotation.z/2, " : ", linear_velocity.length()/50)
 
-func calculate_steering(delta: float):
+func calc_angular_velocity(from: Vector3, to: Vector3) -> Vector3:
+	return Vector3.ZERO
+
+func calc_angular_velocity_between_basises(from_basis: Basis, to_basis: Basis) -> Vector3:
+	#https://www.reddit.com/r/godot/comments/q1lawy/basis_and_angular_velocity_question/
+	
+	var q1: Quaternion = from_basis.get_rotation_quaternion()
+	var q2: Quaternion = to_basis.get_rotation_quaternion()
+	
+	# Quaternion that transforms q1 into q2
+	var qt = q2 * q1.inverse()
+	
+	# Angle from quaternion
+	var angle = 2 * acos(qt.w)
+	
+	# Prevent divide by zero
+	if angle < 0.0001:
+		return Vector3.ZERO
+	
+	# Axis from quaternion
+	var axis = Vector3(qt.x, qt.y, qt.z) / sqrt(1-qt.w*qt.w)
+	
+	return axis * angle
+
+func calculate_acceleration(delta: float):
 	if camera_moto.current:
 		var rpm: float = clamp(wheel_rear.get_rpm(), -1 * max_rpm, 0)
 		

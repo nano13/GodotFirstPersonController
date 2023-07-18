@@ -1729,7 +1729,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.771967, 0, -5.49335)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.78748, 0, -2.71225)
 
 [node name="TreePatchFive2" type="Node3D" parent="Platform/Plants"]
-transform = Transform3D(0.00657978, 0, 0.999978, 0, 1, 0, -0.999978, 0, 0.00657978, -274.481, 0, -172.75)
+transform = Transform3D(-0.00883129, 0, 0.999961, 0, 1, 0, -0.999961, 0, -0.00883129, -277.257, 0, -172.75)
 
 [node name="TreePatchFour3" type="Node3D" parent="Platform/Plants/TreePatchFive2"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 25.818, 0, -0.713837)

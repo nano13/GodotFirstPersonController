@@ -22,6 +22,9 @@ height = 2.41795
 size = Vector3(2.61341, 1.20412, 1.06614)
 
 [node name="Motorbike" type="VehicleBody3D"]
+mass = 300.0
+center_of_mass_mode = 1
+center_of_mass = Vector3(0, 0.7, 0)
 script = ExtResource("1_bbyx0")
 
 [node name="suzuki_motorbike" parent="." instance=ExtResource("5_800q8")]
@@ -55,6 +58,7 @@ script = ExtResource("3_33rb5")
 
 [node name="SpotLight3DSuzukiFront" type="SpotLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.956305, 0.292372, 0, -0.292372, 0.956305, -0.0234728, 1.01026, -0.92679)
+visible = false
 light_energy = 100.0
 shadow_enabled = true
 spot_range = 100.0
@@ -94,21 +98,35 @@ polygon = PackedVector2Array(-0.0222536, 0.614661, -0.460205, 0.514834, -0.27650
 
 [node name="VehicleWheel3DFront" type="VehicleWheel3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00726851, 0.348661, -0.849293)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00726851, 0.366564, -0.848014)
 use_as_steering = true
 wheel_radius = 0.4
-suspension_stiffness = 40.0
+suspension_stiffness = 80.0
 damping_compression = 1.9
 damping_relaxation = 2.0
 
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="VehicleWheel3DFront"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.0353661, 0.00089848, 0.00127876)
+radius = 0.35157
+height = 1.88687
+sides = 64
+
 [node name="VehicleWheel3DRear" type="VehicleWheel3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00249386, 0.340972, 0.822779)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00249386, 0.361433, 0.81127)
 use_as_traction = true
 wheel_radius = 0.4
-suspension_stiffness = 40.0
+suspension_stiffness = 80.0
 damping_compression = 1.9
 damping_relaxation = 2.0
+
+[node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.705231, 0)
+
+[node name="CSGCylinder3Daiaaa" type="CSGCylinder3D" parent="Node3D"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, -2.73975)
+height = 0.125611
+sides = 64
 
 [connection signal="body_entered" from="Area3PlayerEnter" to="." method="_on_area_3d_body_entered"]
 [connection signal="body_exited" from="Area3PlayerEnter" to="." method="_on_area_3d_body_exited"]
