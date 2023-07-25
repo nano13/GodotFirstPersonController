@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://2r2xorepwlip"]
+[gd_scene load_steps=30 format=3 uid="uid://2r2xorepwlip"]
 
 [ext_resource type="PackedScene" uid="uid://cdk6hwb4hi2wc" path="res://Scenes/player.tscn" id="1_drql4"]
 [ext_resource type="Texture2D" uid="uid://b01vv6qc3japu" path="res://Assets/DarkPrototypeTexture.png" id="2_h0gpr"]
@@ -24,6 +24,7 @@
 [ext_resource type="PackedScene" uid="uid://ca026by8kvonb" path="res://addons/quaternius simple nature pack/static bodies/tree_2.tscn" id="16_6va7i"]
 [ext_resource type="PackedScene" uid="uid://t7f7lc8h1od6" path="res://addons/quaternius simple nature pack/static bodies/tree_3.tscn" id="17_n6afh"]
 [ext_resource type="PackedScene" uid="uid://2mqqu1vombe5" path="res://addons/quaternius simple nature pack/static bodies/tree_4.tscn" id="18_girx5"]
+[ext_resource type="PackedScene" uid="uid://cwuusdypv22c7" path="res://Scenes/mercedes_s_500.tscn" id="25_hxxp0"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_yxtyg"]
 
@@ -2204,3 +2205,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.51862, 0, -58.2274)
 
 [node name="Tree4" parent="." instance=ExtResource("18_girx5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.86001, 0, -67.3069)
+
+[node name="MercedesS500" parent="." instance=ExtResource("25_hxxp0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.9765, 0.382096, 0)

@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://cwuusdypv22c7"]
+
+[ext_resource type="PackedScene" uid="uid://btxjok7j5ueg1" path="res://Models/mercedes_s500.blend" id="1_5isg3"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_wvn2y"]
+
+[node name="MercedesS500" type="VehicleBody3D"]
+
+[node name="mercedes_s500" parent="." instance=ExtResource("1_5isg3")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.225243, 0)
+shape = SubResource("ConvexPolygonShape3D_wvn2y")
