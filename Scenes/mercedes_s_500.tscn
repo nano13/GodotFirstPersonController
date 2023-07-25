@@ -23,7 +23,7 @@ shape = SubResource("BoxShape3D_mq3bn")
 
 [node name="VehicleWheel3DMercedesS500FrontLeft" type="VehicleWheel3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.07156, 0.404054, -2.08728)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.05425, 0.404054, -2.08728)
 use_as_traction = true
 use_as_steering = true
 wheel_radius = 0.4
@@ -34,7 +34,7 @@ damping_relaxation = 0.7
 
 [node name="VehicleWheel3DMercedesS500FrontRight" type="VehicleWheel3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.972205, 0.405501, -2.0856)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.03768, 0.405501, -2.0856)
 use_as_traction = true
 use_as_steering = true
 wheel_radius = 0.4
