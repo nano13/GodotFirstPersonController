@@ -1,5 +1,7 @@
 extends VehicleBody3D
 
+# https://www.b3dassets.com/2021/05/29/cars-3d-model-library/
+
 var max_rpm = 600
 var torque_min = 5000
 
