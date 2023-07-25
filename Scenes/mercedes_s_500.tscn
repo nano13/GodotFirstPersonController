@@ -27,10 +27,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.05425, 0.404054, -2.08728)
 use_as_traction = true
 use_as_steering = true
 wheel_radius = 0.4
+wheel_rest_length = 0.05
+suspension_travel = 0.1
 suspension_stiffness = 100.0
 suspension_max_force = 10000.0
-damping_compression = 0.5
-damping_relaxation = 0.7
+damping_compression = 0.7
+damping_relaxation = 0.9
 
 [node name="VehicleWheel3DMercedesS500FrontRight" type="VehicleWheel3D" parent="."]
 unique_name_in_owner = true
@@ -38,26 +40,32 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.03768, 0.405501, -2.0856)
 use_as_traction = true
 use_as_steering = true
 wheel_radius = 0.4
+wheel_rest_length = 0.05
+suspension_travel = 0.1
 suspension_stiffness = 100.0
 suspension_max_force = 10000.0
-damping_compression = 0.5
-damping_relaxation = 0.7
+damping_compression = 0.7
+damping_relaxation = 0.9
 
 [node name="VehicleWheel3DRearLeft" type="VehicleWheel3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.01618, 0.405637, 1.32036)
 wheel_radius = 0.4
+wheel_rest_length = 0.05
+suspension_travel = 0.1
 suspension_stiffness = 100.0
 suspension_max_force = 10000.0
-damping_compression = 0.5
-damping_relaxation = 0.7
+damping_compression = 0.7
+damping_relaxation = 0.9
 
 [node name="VehicleWheel3DRearRight" type="VehicleWheel3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.993483, 0.406324, 1.3206)
 wheel_radius = 0.4
+wheel_rest_length = 0.05
+suspension_travel = 0.1
 suspension_stiffness = 100.0
 suspension_max_force = 10000.0
-damping_compression = 0.5
-damping_relaxation = 0.7
+damping_compression = 0.7
+damping_relaxation = 0.9
 
 [node name="Camera3DMercedesS500" type="Camera3D" parent="."]
 unique_name_in_owner = true
