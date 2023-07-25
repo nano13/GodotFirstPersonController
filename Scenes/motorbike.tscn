@@ -1,14 +1,14 @@
 [gd_scene load_steps=13 format=3 uid="uid://cpeh5n4ulqfj8"]
 
 [ext_resource type="Script" path="res://src/vehicles/Motorbike.gd" id="1_jk3vu"]
-[ext_resource type="Script" path="res://Scenes/Camera3DMotorbike.gd" id="3_33rb5"]
 [ext_resource type="Material" uid="uid://dj711xafgply4" path="res://Materials/suzuki_motorbike/Material.024.tres" id="4_fsrjg"]
 [ext_resource type="Material" uid="uid://b42hb4b8518d3" path="res://Materials/suzuki_motorbike/Gold 10K B3D Material.tres" id="4_j1v5a"]
-[ext_resource type="Script" path="res://Scenes/SpotLight3DMotorbike.gd" id="4_wwxum"]
 [ext_resource type="PackedScene" uid="uid://3genr5akjgoh" path="res://Models/suzuki_motorbike.blend" id="5_800q8"]
 [ext_resource type="Material" uid="uid://caix441d5osw7" path="res://Materials/suzuki_motorbike/Carbon Black.tres" id="6_8s6tx"]
 [ext_resource type="Material" uid="uid://d1ajm8qliayjp" path="res://Materials/suzuki_motorbike/Material.017.tres" id="7_vf6ge"]
 [ext_resource type="Material" uid="uid://cbn7h3mndtysj" path="res://Materials/suzuki_motorbike/Material.021.tres" id="7_wiyrx"]
+[ext_resource type="Script" path="res://src/vehicles/Camera3DMotorbike.gd" id="8_sjxsv"]
+[ext_resource type="Script" path="res://src/vehicles/SpotLight3DMotorbike.gd" id="9_t4uk1"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kcw31"]
 radius = 0.346736
@@ -55,7 +55,7 @@ shape = SubResource("CapsuleShape3D_2ni4f")
 [node name="Camera3DSuzuki" type="Camera3D" parent="."]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00318015, 1.53614, 0)
-script = ExtResource("3_33rb5")
+script = ExtResource("8_sjxsv")
 
 [node name="SpotLight3DSuzukiFront" type="SpotLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.956305, 0.292372, 0, -0.292372, 0.956305, -0.0234728, 1.01026, -0.92679)
@@ -65,7 +65,7 @@ shadow_enabled = true
 spot_range = 100.0
 spot_angle = 35.0
 spot_angle_attenuation = 4.0
-script = ExtResource("4_wwxum")
+script = ExtResource("9_t4uk1")
 
 [node name="OmniLight3DSuzukiFront" type="OmniLight3D" parent="SpotLight3DSuzukiFront"]
 transform = Transform3D(1, 0, 0, 0, 1, 1.49012e-07, 0, -1.49012e-07, 1, -0.00414276, -0.0153804, 0.00975454)
