@@ -108,7 +108,6 @@ damping_relaxation = 2.0
 
 [node name="CSGCylinder3D" type="CSGCylinder3D" parent="VehicleWheel3DFront"]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.0353661, 0.00089848, 0.00127876)
-visible = false
 radius = 0.35157
 height = 1.88687
 sides = 64
@@ -127,7 +126,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.705231, 0)
 
 [node name="CSGCylinder3Daiaaa" type="CSGCylinder3D" parent="Node3D"]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, -2.73975)
-visible = false
 height = 0.125611
 sides = 64
 
