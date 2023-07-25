@@ -26,6 +26,9 @@ You can change any of this keys in: Project Settings → Input Map.
 Source of the Car-Modell: https://www.b3dassets.com/2021/05/29/cars-3d-model-library/
 ![EditorView](Assets/screen_mercedes_s500.png)
 
+Source of the Motorbike-Modell: https://www.b3dassets.com/2022/09/03/blender-motorcycle-3d-model-library/
+![EditorView](Assets/screen_suzuki_streetbike.png)
+
 | Keys           | Action Name                                | Description              |
 |:--------------:|:------------------------------------------:|:------------------------:|
 | <kbd>E</kbd>   | `use`                                      | Enter/Exit Vehicle       |
