@@ -7,7 +7,7 @@ The main scene is a _Sandbox_ scene used to test the controls:
 
 ![EditorView](Assets/BasicFPCBeta17.png)
 
-## Controls
+## Controls Player (FPS-Controller)
 | Keys | Action Name | Description |
 |:------:|:-------------:|:-------------:|
 | <kbd>W</kbd>,<kbd>A</kbd>,<kbd>S</kbd>,<kbd>D</kbd>, <kbd>left stick</kbd> | `move_` + _dir_ | Move |
@@ -21,3 +21,14 @@ The main scene is a _Sandbox_ scene used to test the controls:
 | <kbd>ESC</kbd>, <kbd>Xbox Ⓑ</kbd> | `exit` | Close the game |
 
 You can change any of this keys in: Project Settings → Input Map.
+
+## Controls Vehicles
+Source of the Car-Modell: https://www.b3dassets.com/2021/05/29/cars-3d-model-library/
+![EditorView](Assets/screen_mercedes_s500.png)
+
+| Keys           | Action Name                                | Description              |
+|:--------------:|:------------------------------------------:|:------------------------:|
+| <kbd>E</kbd>   | `use`                                      | Enter/Exit Vehicle       |
+| <kbd>W,S</kbd> | `vehicle_accelerate`; `vehicle_decelerate` | Forward; Break; Backward |
+| <kbd>A,D</kbd> | `vehicle_left`; `vehicle_right`            | Left; Right              |
+
