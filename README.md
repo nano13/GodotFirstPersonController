@@ -5,7 +5,7 @@ The code found in [player.gd](Player/player.gd) uses vector forces to move the p
 
 The main scene is a _Sandbox_ scene used to test the controls:
 
-![EditorView](Assets/BasicFPCBeta17.png)
+![EditorView](Assets/screen_sandbox.png)
 
 ## Controls Player (FPS-Controller)
 | Keys | Action Name | Description |
