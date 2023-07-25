@@ -23,6 +23,9 @@ The main scene is a _Sandbox_ scene used to test the controls:
 You can change any of this keys in: Project Settings → Input Map.
 
 ## Controls Vehicles
+Source of the Car-Modell: https://www.b3dassets.com/2021/05/29/cars-3d-model-library/
+![EditorView](Assets/screen_mercedes_s500.png)
+
 | Keys           | Action Name                                | Description              |
 |:--------------:|:------------------------------------------:|:------------------------:|
 | <kbd>E</kbd>   | `use`                                      | Enter/Exit Vehicle       |
