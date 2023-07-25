@@ -1,4 +1,4 @@
-class_name Motorbike extends VehicleBody3D
+class_name VehicleBody3DSuzukiStreetBike extends VehicleBody3D
 
 # https://www.b3dassets.com/2022/09/03/blender-motorcycle-3d-model-library/
 # https://www.youtube.com/watch?v=uKpO2X6wj4A
@@ -41,7 +41,7 @@ func _integrate_forces(state):
 func _physics_process(delta):
 	# for some reason Input.get_axis will not work properly if called from _integrate_forces
 	# but we need to use it there, so we put it into a variable here
-	axis_left_right = Input.get_axis("move_right", "move_left")
+	axis_left_right = Input.get_axis("vehicle_right", "vehicle_left")
 	
 	if is_recovering:
 		recover_motorbike()

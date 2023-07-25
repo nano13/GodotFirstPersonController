@@ -1,6 +1,6 @@
-extends VehicleBody3D
+class_name VehicleBody3DMercedesS500 extends VehicleBody3D
 
-# https://www.b3dassets.com/2021/05/29/cars-3d-model-library/
+# https://www.b3dassets.com/2021/05/29/cars-3d-model-library/t
 
 var max_rpm = 600
 var torque_min = 5000
@@ -24,7 +24,8 @@ var axis_left_right: float = 0
 
 @onready var wheel_front_left: VehicleWheel3D = get_node("%VehicleWheel3DMercedesS500FrontLeft")
 @onready var wheel_front_right: VehicleWheel3D = get_node("%VehicleWheel3DMercedesS500FrontRight")
-#@onready var wheel_rear: VehicleWheel3D = get_node("%VehicleWheel3DRear")
+@onready var wheel_rear_left: VehicleWheel3D = get_node("%VehicleWheel3DMercedesS500RearLeft")
+@onready var wheel_rear_right: VehicleWheel3D = get_node("%VehicleWheel3DMercedesS500RearRight")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -40,10 +41,12 @@ func _process(delta):
 			enter_car()
 
 func _physics_process(delta):
+	freeze_if_not_used_and_crashed()
+	
 	# for some reason Input.get_axis will not work properly if called from _integrate_forces
 	# but we need to use it there, so we put it into a variable here
 	
-	var axis_left_right: float = Input.get_axis("move_right", "move_left")
+	var axis_left_right: float = Input.get_axis("vehicle_right", "vehicle_left")
 	
 	var speed: float = linear_velocity.length()
 	# to make it more realistic, the faster we go, the less we can turn the wheel
@@ -70,6 +73,14 @@ func calculate_acceleration(delta: float):
 			set_brake(200)
 		if Input.is_action_just_released("jump_default"):
 			set_brake(0)
+
+func freeze_if_not_used_and_crashed():
+	if (wheel_front_left.is_in_contact() and wheel_front_right.is_in_contact() and
+	 wheel_rear_left.is_in_contact() and wheel_rear_right.is_in_contact() and
+	 not camera_car.current):
+		set_freeze_enabled(true)
+	elif camera_car.current:
+		set_freeze_enabled(false)
 
 func _on_area_3d_body_entered(body):
 	if body.name == "Player":

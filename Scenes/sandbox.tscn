@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://d04r1xotjp8s" path="res://Scenes/ladder.tscn" id="3_wk7q3"]
 [ext_resource type="PackedScene" uid="uid://chascookfeke3" path="res://Scenes/water_surface.tscn" id="4_dligd"]
 [ext_resource type="Material" uid="uid://c0axykpjgq5b4" path="res://Materials/prototype_green_1.tres" id="4_l4w51"]
-[ext_resource type="PackedScene" uid="uid://cpeh5n4ulqfj8" path="res://Scenes/motorbike.tscn" id="5_jiyeq"]
+[ext_resource type="PackedScene" uid="uid://cpeh5n4ulqfj8" path="res://Scenes/suzuki_street_bike.tscn" id="5_jiyeq"]
 [ext_resource type="PackedScene" uid="uid://cygv0m43n3g65" path="res://addons/quaternius simple nature pack/static bodies/bush_1.tscn" id="6_ydy4d"]
 [ext_resource type="PackedScene" path="res://addons/quaternius simple nature pack/static bodies/bush_2.tscn" id="7_m3wpw"]
 [ext_resource type="Texture2D" uid="uid://c3o1ldhm8toe" path="res://addons/kenney_prototype_textures/blue/texture_01_light.png" id="8_s82cq"]
