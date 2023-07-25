@@ -1,14 +1,76 @@
-[gd_scene load_steps=3 format=3 uid="uid://cwuusdypv22c7"]
+[gd_scene load_steps=6 format=3 uid="uid://cwuusdypv22c7"]
 
 [ext_resource type="PackedScene" uid="uid://btxjok7j5ueg1" path="res://Models/mercedes_s500.blend" id="1_5isg3"]
+[ext_resource type="Script" path="res://src/vehicles/mercedes_s_500.gd" id="1_c52wh"]
+[ext_resource type="Script" path="res://src/vehicles/Camera3DMercedesS500.gd" id="3_r1sdc"]
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_wvn2y"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_mq3bn"]
+size = Vector3(2.0834, 1, 5.67523)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5bq06"]
+size = Vector3(2.6306, 1, 1.27855)
 
 [node name="MercedesS500" type="VehicleBody3D"]
+mass = 2000.0
+script = ExtResource("1_c52wh")
 
 [node name="mercedes_s500" parent="." instance=ExtResource("1_5isg3")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.225243, 0)
-shape = SubResource("ConvexPolygonShape3D_wvn2y")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.739281, -0.205174)
+shape = SubResource("BoxShape3D_mq3bn")
+
+[node name="VehicleWheel3DMercedesS500FrontLeft" type="VehicleWheel3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.07156, 0.404054, -2.08728)
+use_as_traction = true
+use_as_steering = true
+wheel_radius = 0.4
+suspension_stiffness = 100.0
+suspension_max_force = 10000.0
+damping_compression = 0.5
+damping_relaxation = 0.7
+
+[node name="VehicleWheel3DMercedesS500FrontRight" type="VehicleWheel3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.972205, 0.405501, -2.0856)
+use_as_traction = true
+use_as_steering = true
+wheel_radius = 0.4
+suspension_stiffness = 100.0
+suspension_max_force = 10000.0
+damping_compression = 0.5
+damping_relaxation = 0.7
+
+[node name="VehicleWheel3DRearLeft" type="VehicleWheel3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.01618, 0.405637, 1.32036)
+wheel_radius = 0.4
+suspension_stiffness = 100.0
+suspension_max_force = 10000.0
+damping_compression = 0.5
+damping_relaxation = 0.7
+
+[node name="VehicleWheel3DRearRight" type="VehicleWheel3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.993483, 0.406324, 1.3206)
+wheel_radius = 0.4
+suspension_stiffness = 100.0
+suspension_max_force = 10000.0
+damping_compression = 0.5
+damping_relaxation = 0.7
+
+[node name="Camera3DMercedesS500" type="Camera3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.425756, 1.91072, -0.338569)
+script = ExtResource("3_r1sdc")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.904907, -0.578058)
+shape = SubResource("BoxShape3D_5bq06")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]
+
+[editable path="mercedes_s500"]
