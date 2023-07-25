@@ -29,6 +29,7 @@ Source of the Car-Modell: https://www.b3dassets.com/2021/05/29/cars-3d-model-lib
 Source of the Motorbike-Modell: https://www.b3dassets.com/2022/09/03/blender-motorcycle-3d-model-library/
 ![EditorView](Assets/screen_suzuki_streetbike.png)
 
+You need to stand close to the Motorbike in order to enter it. To enter the car, you need to stand directly at one of the front doors.
 | Keys           | Action Name                                | Description              |
 |:--------------:|:------------------------------------------:|:------------------------:|
 | <kbd>E</kbd>   | `use`                                      | Enter/Exit Vehicle       |
