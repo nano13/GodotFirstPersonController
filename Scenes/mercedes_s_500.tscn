@@ -1,14 +1,24 @@
-[gd_scene load_steps=6 format=3 uid="uid://cwuusdypv22c7"]
+[gd_scene load_steps=9 format=3 uid="uid://cwuusdypv22c7"]
 
 [ext_resource type="PackedScene" uid="uid://btxjok7j5ueg1" path="res://Models/mercedes_s500.blend" id="1_5isg3"]
 [ext_resource type="Script" path="res://src/vehicles/mercedes_s_500.gd" id="1_c52wh"]
 [ext_resource type="Script" path="res://src/vehicles/Camera3DMercedesS500.gd" id="3_r1sdc"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_mq3bn"]
-size = Vector3(2.0834, 1, 5.67523)
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_5bq06"]
 size = Vector3(2.6306, 1, 1.27855)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mq3bn"]
+size = Vector3(1.8386, 0.830325, 4.94357)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_t41v0"]
+radius = 0.696363
+height = 2.76024
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xv4lx"]
+radius = 0.458764
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hgnuv"]
+size = Vector3(0.735279, 1, 1.61616)
 
 [node name="MercedesS500" type="VehicleBody3D"]
 mass = 2000.0
@@ -18,10 +28,6 @@ script = ExtResource("1_c52wh")
 
 [node name="mercedes_s500" parent="." instance=ExtResource("1_5isg3")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.739281, -0.205174)
-shape = SubResource("BoxShape3D_mq3bn")
 
 [node name="VehicleWheel3DMercedesS500FrontLeft" type="VehicleWheel3D" parent="."]
 unique_name_in_owner = true
@@ -81,6 +87,30 @@ script = ExtResource("3_r1sdc")
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.904907, -0.578058)
 shape = SubResource("BoxShape3D_5bq06")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.739281, -0.158864)
+shape = SubResource("BoxShape3D_mq3bn")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.385608, 0.979656, 0.281157)
+shape = SubResource("CapsuleShape3D_t41v0")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.362546, 0.979656, 0.281157)
+shape = SubResource("CapsuleShape3D_t41v0")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0.690565, -2.61903)
+shape = SubResource("CapsuleShape3D_xv4lx")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0.792871, 2.22515)
+shape = SubResource("CapsuleShape3D_xv4lx")
+
+[node name="CollisionShape3D6" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.16639, 0.240227)
+shape = SubResource("BoxShape3D_hgnuv")
 
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
 [connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]
