@@ -23,7 +23,7 @@ size = Vector3(0.735279, 1, 1.61616)
 [node name="MercedesS500" type="VehicleBody3D"]
 mass = 2000.0
 center_of_mass_mode = 1
-center_of_mass = Vector3(0, 0.4, -0.9)
+center_of_mass = Vector3(0, 0.45, -0.9)
 script = ExtResource("1_c52wh")
 
 [node name="mercedes_s500" parent="." instance=ExtResource("1_5isg3")]
@@ -37,7 +37,7 @@ use_as_steering = true
 wheel_radius = 0.4
 wheel_rest_length = 0.05
 suspension_travel = 0.1
-suspension_stiffness = 50.0
+suspension_stiffness = 80.0
 suspension_max_force = 10000.0
 damping_compression = 0.7
 damping_relaxation = 0.9
@@ -50,7 +50,7 @@ use_as_steering = true
 wheel_radius = 0.4
 wheel_rest_length = 0.05
 suspension_travel = 0.1
-suspension_stiffness = 50.0
+suspension_stiffness = 80.0
 suspension_max_force = 10000.0
 damping_compression = 0.7
 damping_relaxation = 0.9
