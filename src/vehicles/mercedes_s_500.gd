@@ -41,6 +41,9 @@ func _process(delta):
 			enter_car()
 
 func _physics_process(delta):
+	if camera_car.current:
+		print(basis.get_rotation_quaternion())
+	
 	freeze_if_not_used_and_crashed()
 	
 	# for some reason Input.get_axis will not work properly if called from _integrate_forces

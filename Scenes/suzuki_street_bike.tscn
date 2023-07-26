@@ -125,9 +125,13 @@ damping_relaxation = 2.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.705231, 0)
 
 [node name="CSGCylinder3Daiaaa" type="CSGCylinder3D" parent="Node3D"]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, -2.73975)
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.0484695, 0, -2.73975)
 height = 0.125611
 sides = 64
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0321121, 0.0462341, -2.21082)
+size = Vector3(1, 0.164876, 0.252648)
 
 [connection signal="body_entered" from="Area3PlayerEnter" to="." method="_on_area_3d_body_entered"]
 [connection signal="body_exited" from="Area3PlayerEnter" to="." method="_on_area_3d_body_exited"]
