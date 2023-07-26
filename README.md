@@ -1,5 +1,5 @@
 # Godot 4 - Advanced First Person Controller
-This project contains the implementation of a First Person character controller for [Godot 4](https://downloads.tuxfamily.org/godotengine/4.0/) for walking on <b>Land</b>, swimming in <b>Water</b> and moving <b>Ladders</b> up and down.
+This project contains the implementation of a First Person character controller for [Godot 4](https://godotengine.org/) for walking on <b>Land</b>, swimming in <b>Water</b> and moving <b>Ladders</b> up and down.
 
 The code found in [player.gd](Player/player.gd) uses vector forces to move the player. You can tweak the values of the forces in the editor directly. The _velocity_ of the player is calculated as a result of the vector sum of different vector forces: walk, jump, gravity and drag.
 
@@ -23,10 +23,10 @@ The main scene is a _Sandbox_ scene used to test the controls:
 You can change any of this keys in: Project Settings → Input Map.
 
 ## Controls Vehicles
-Source of the Car-Modell: https://www.b3dassets.com/2021/05/29/cars-3d-model-library/
+[Source of the Car-Modell](https://www.b3dassets.com/2021/05/29/cars-3d-model-library/)
 ![EditorView](Assets/screen_mercedes_s500.png)
 
-Source of the Motorbike-Modell: https://www.b3dassets.com/2022/09/03/blender-motorcycle-3d-model-library/
+[Source of the Motorbike-Modell](https://www.b3dassets.com/2022/09/03/blender-motorcycle-3d-model-library/)
 ![EditorView](Assets/screen_suzuki_streetbike.png)
 
 You need to stand close to the Motorbike in order to enter it. To enter the car, you need to stand directly at one of the front doors.
