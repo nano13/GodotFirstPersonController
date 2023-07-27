@@ -4,31 +4,34 @@ var aim_target_show: bool = false
 
 @onready var ray: RayCast3D = get_node("%CollisionRayCrosshair")
 
+@onready var camera_fpc: CameraFPC = get_node("%CShapeHead/CameraFPC")
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	# place AimTarget at the collision point facing towards the normal of the given surface
-	if ray.is_colliding() and aim_target_show:
-		var collision_point := ray.get_collision_point()
-		var collision_normal := ray.get_collision_normal()
-		global_transform.origin = collision_point + collision_normal * 0.01 # 0.01 is the distance of the sprite above the target
+	if camera_fpc.current:
+		# place AimTarget at the collision point facing towards the normal of the given surface
+		if ray.is_colliding() and aim_target_show:
+			var collision_point := ray.get_collision_point()
+			var collision_normal := ray.get_collision_normal()
+			global_transform.origin = collision_point + collision_normal * 0.01 # 0.01 is the distance of the sprite above the target
+			
+			look_at_safe(collision_point, collision_normal)
+			
+			show()
 		
-		look_at_safe(collision_point, collision_normal)
-		
-		show()
-	
-	else:
-		hide()
-	
-	# toggle visibility with fire_secondary
-	if Input.is_action_just_pressed("fire_secondary"):
-		if aim_target_show:
-			aim_target_show = false
 		else:
-			aim_target_show = true
+			hide()
+		
+		# toggle visibility with fire_secondary
+		if Input.is_action_just_pressed("fire_secondary"):
+			if aim_target_show:
+				aim_target_show = false
+			else:
+				aim_target_show = true
 
 func look_at_safe(point: Vector3, normal: Vector3) -> void:
 	# https://godotforums.org/d/30764-lookat-fails-sometimes

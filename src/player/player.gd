@@ -4,6 +4,7 @@ class_name Player extends CharacterBody3D
 
 @onready var player_head: CollisionShape3D = get_node("%CShapeHead")
 @onready var player_body: CollisionShape3D = get_node("%CShapeBody")
+@onready var camera_fpc: CameraFPC = get_node("%CameraFPC")
 
 @onready var state_machine: StateMachine = $StateMachine
 
@@ -111,3 +112,6 @@ func on_water_exited():
 		
 		state_movement_ladder:
 			state_machine.set_state_previous(state_movement_land)
+
+func set_camera_rotation(rot: Vector3) -> void:
+	camera_fpc.rotation = rot

@@ -11,15 +11,17 @@ func _ready():
 	pass # Replace with function body.
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventMouseMotion:
-		look_dir = event.relative * 0.0001
-		_rotate_camera()
+	if current:
+		if event is InputEventMouseMotion:
+			look_dir = event.relative * 0.0001
+			_rotate_camera()
 
 func _input(event: InputEvent) -> void:
 	pass
 
 func _physics_process(delta: float) -> void:
-	_handle_joypad_camera_rotation(delta)
+	if current:
+		_handle_joypad_camera_rotation(delta)
 
 func _process(delta: float):
 	pass

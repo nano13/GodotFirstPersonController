@@ -2,6 +2,8 @@ class_name VehicleBody3DMercedesS500 extends VehicleBody3D
 
 # https://www.b3dassets.com/2021/05/29/cars-3d-model-library/t
 
+@export_category("MercedesS500")
+
 @export_range(0, 100, 1) var brake_force: float = 100
 
 var max_rpm = 600
@@ -22,12 +24,16 @@ var axis_left_right: float = 0
 
 @onready var player: CharacterBody3D = get_node("%Player")
 
-#@onready var player_head: CollisionShape3D = get_node("%CollisionShape3DHead")
-
 @onready var wheel_front_left: VehicleWheel3D = get_node("%VehicleWheel3DMercedesS500FrontLeft")
 @onready var wheel_front_right: VehicleWheel3D = get_node("%VehicleWheel3DMercedesS500FrontRight")
 @onready var wheel_rear_left: VehicleWheel3D = get_node("%VehicleWheel3DMercedesS500RearLeft")
 @onready var wheel_rear_right: VehicleWheel3D = get_node("%VehicleWheel3DMercedesS500RearRight")
+
+@onready var exit_shape_left: CollisionShape3D = get_node("%CollisionShape3DExitLeft")
+@onready var exit_shape_right: CollisionShape3D = get_node("%CollisionShape3DExitRight")
+
+var exit_shape_left_body_count: int = 0
+var exit_shape_right_body_count: int = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -44,15 +50,12 @@ func _process(delta):
 			exit_car()
 
 func _physics_process(delta):
-	freeze_if_not_used_and_crashed()
+	#freeze_if_not_used_and_crashed()
 	
 	#print(angular_velocity.length())
 	if camera_car.current:
-		print(basis.get_rotation_quaternion())
-		
 		# for some reason Input.get_axis will not work properly if called from _integrate_forces
 		# but we need to use it there, so we put it into a variable here
-		
 		var axis_left_right: float = Input.get_axis("vehicle_right", "vehicle_left")
 		
 		var speed: float = linear_velocity.length()
@@ -114,7 +117,33 @@ func enter_car():
 		ray.set_clicks_enabled(false)
 
 func exit_car():
-	set_brake(brake_force)
+	var exited = false
+	if exit_shape_left_body_count == 0:
+		player.position = exit_shape_left.global_position
+		exited = true
+	elif exit_shape_right_body_count == 0:
+		player.position = exit_shape_right.global_position
+		exited = true
 	
-	camera_car.current = false
-	player.on_activate()
+	if exited:
+		player.set_camera_rotation(camera_car.rotation)
+		camera_car.current = false
+		
+		set_brake(brake_force)
+		
+		player.on_activate()
+
+
+func _on_area_3d_exit_left_body_entered(body):
+	if not body.name == "MercedesS500":
+		exit_shape_left_body_count += 1
+
+func _on_area_3d_exit_left_body_exited(body):
+	exit_shape_left_body_count -= 1
+
+func _on_area_3d_exit_right_body_entered(body):
+	if not body.name == "MercedesS500":
+		exit_shape_right_body_count += 1
+
+func _on_area_3d_exit_right_body_exited(body):
+	exit_shape_right_body_count -= 1

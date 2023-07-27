@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cwuusdypv22c7"]
+[gd_scene load_steps=14 format=3 uid="uid://cwuusdypv22c7"]
 
 [ext_resource type="PackedScene" uid="uid://btxjok7j5ueg1" path="res://Models/mercedes_s500.blend" id="1_5isg3"]
 [ext_resource type="Script" path="res://src/vehicles/mercedes_s_500.gd" id="1_c52wh"]
@@ -23,6 +23,10 @@ radius = 0.458764
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_hgnuv"]
 size = Vector3(0.735279, 1, 1.61616)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ue8sb"]
+radius = 0.330791
+height = 1.51857
 
 [node name="MercedesS500" type="VehicleBody3D"]
 mass = 2000.0
@@ -103,9 +107,9 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.425756, 1.91072, -0.338569)
 script = ExtResource("3_r1sdc")
 
-[node name="Area3D" type="Area3D" parent="."]
+[node name="Area3DEnter" type="Area3D" parent="."]
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="Area3D"]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Area3DEnter"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.904907, -0.578058)
 shape = SubResource("BoxShape3D_5bq06")
 
@@ -133,8 +137,27 @@ shape = SubResource("CapsuleShape3D_xv4lx")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.16639, 0.240227)
 shape = SubResource("BoxShape3D_hgnuv")
 
-[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
-[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]
+[node name="Area3DExitLeft" type="Area3D" parent="."]
+
+[node name="CollisionShape3DExitLeft" type="CollisionShape3D" parent="Area3DExitLeft"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.46991, 1.04387, -0.406693)
+shape = SubResource("CapsuleShape3D_ue8sb")
+
+[node name="Area3DExitRight" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.82648, 0, 0)
+
+[node name="CollisionShape3DExitRight" type="CollisionShape3D" parent="Area3DExitRight"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.27428, 1.04144, -0.406693)
+shape = SubResource("CapsuleShape3D_ue8sb")
+
+[connection signal="body_entered" from="Area3DEnter" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Area3DEnter" to="." method="_on_area_3d_body_exited"]
+[connection signal="body_entered" from="Area3DExitLeft" to="." method="_on_area_3d_exit_left_body_entered"]
+[connection signal="body_exited" from="Area3DExitLeft" to="." method="_on_area_3d_exit_left_body_exited"]
+[connection signal="body_entered" from="Area3DExitRight" to="." method="_on_area_3d_exit_right_body_entered"]
+[connection signal="body_exited" from="Area3DExitRight" to="." method="_on_area_3d_exit_right_body_exited"]
 
 [editable path="mercedes_s500"]
 [editable path="VehicleWheel3DMercedesS500FrontLeft/mercedes_s500_wheel"]

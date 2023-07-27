@@ -3,6 +3,8 @@ class_name CrosshairRay extends RayCast3D
 var is_clicks_enabled = true
 var is_clicks_just_enabled = false
 
+@onready var camera_fpc: CameraFPC = get_node("%CShapeHead/CameraFPC")
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -24,7 +26,7 @@ func _process(delta):
 	else:
 		marker.hide()
 	"""
-	if is_clicks_enabled:
+	if camera_fpc.current and is_clicks_enabled:
 		if is_clicks_just_enabled:
 			is_clicks_just_enabled = false
 		

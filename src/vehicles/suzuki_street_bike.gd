@@ -3,6 +3,8 @@ class_name VehicleBody3DSuzukiStreetBike extends VehicleBody3D
 # https://www.b3dassets.com/2022/09/03/blender-motorcycle-3d-model-library/
 # https://www.youtube.com/watch?v=uKpO2X6wj4A
 
+@export_category("Suzuki_Street_Bike")
+
 @export_range(0, 100, 1) var brake_force: float = 20
 
 var max_rpm = 600
@@ -22,7 +24,7 @@ var balance_left_right: float = 0
 var steering_axis: Vector3 = Vector3(0.13, 1, 0).normalized()
 
 @onready var camera_moto: Camera3D = get_node("%Camera3DSuzuki")
-@onready var camera_fpc: Camera3D = get_node("%CameraFPC")
+@onready var camera_fpc: Camera3D = get_node("%CShapeHead/CameraFPC")
 
 @onready var player: CharacterBody3D = get_node("%Player")
 
@@ -32,6 +34,12 @@ var steering_axis: Vector3 = Vector3(0.13, 1, 0).normalized()
 @onready var wheel_rear: VehicleWheel3D = get_node("%VehicleWheel3DRear")
 @onready var steering_fork: Node3D = get_node("%suzuki_motorbike_steering")
 @onready var steering_wheel: VehicleWheel3D = get_node("%VehicleWheel3DSteering")
+
+@onready var exit_shape_left: CollisionShape3D = get_node("%CollisionShape3DExitLeft")
+@onready var exit_shape_right: CollisionShape3D = get_node("%CollisionShape3DExitRight")
+
+var exit_shape_left_body_count: int = 0
+var exit_shape_right_body_count: int = 0
 
 @onready var test: CSGCylinder3D = get_node("Node3D/CSGCylinder3Daiaaa")
 
@@ -119,7 +127,7 @@ func calculate_lean():
 	#angular_velocity = calc_angular_velocity_(basis, Quaternion(axis, -theta))
 	#angular_velocity = calc_angular_velocity_(basis, Quaternion(basis.z, theta))
 	
-	#angular_velocity = calc_angular_velocity_(basis, basis.rotated(basis.z, theta))
+	angular_velocity = calc_angular_velocity_(basis, basis.rotated(basis.z, theta))
 	#angular_velocity = calc_angular_velocity_(basis, basis.rotated(basis.z, 0))
 	#angular_velocity = calc_angular_velocity_(basis, Quaternion(basis.z, theta) * basis.get_rotation_quaternion())
 	
@@ -127,7 +135,7 @@ func calculate_lean():
 	
 	#print(theta)
 	#print(rotation.z)
-	#center_of_mass.x = rotation.z
+	center_of_mass.x = rotation.z
 	#center_of_mass.x = lerp(0.0, rotation.z * 2, 1)
 	
 	if rotation.z > theta + 0.001 or rotation.z < theta - 0.001:
@@ -219,10 +227,21 @@ func enter_motorbike():
 		ray.set_clicks_enabled(false)
 
 func exit_motorbike():
-	set_brake(brake_force)
+	var exited: bool = false
+	if exit_shape_left_body_count == 0:
+		player.position = exit_shape_left.global_position
+		exited = true
+	elif exit_shape_right_body_count == 0:
+		player.position = exit_shape_right.global_position
+		exited = true
 	
-	camera_moto.current = false
-	player.on_activate()
+	if exited:
+		player.set_camera_rotation(camera_moto.rotation)
+		camera_moto.current = false
+		
+		set_brake(brake_force)
+		
+		player.on_activate()
 
 func recover_motorbike():
 	var ray: CrosshairRay = player.get_node("CShapeHead/CameraFPC/CollisionRayCrosshair")
@@ -263,3 +282,18 @@ func _on_area_3d_crash_body_shape_entered(body_rid, body, body_shape_index, loca
 	if body.name != "Player" and body.name != "Motorbike":
 		print("crashed by polygon: ", body)
 		#is_crashed = true
+
+
+func _on_area_3d_exit_left_body_entered(body):
+	if not body.name == "Suzuki_Street_Bike":
+		exit_shape_left_body_count += 1
+
+func _on_area_3d_exit_left_body_exited(body):
+	exit_shape_left_body_count -= 1
+
+func _on_area_3d_exit_right_body_entered(body):
+	if not body.name == "Suzuki_Street_Bike":
+		exit_shape_right_body_count += 1
+
+func _on_area_3d_exit_right_body_exited(body):
+	exit_shape_right_body_count -= 1
