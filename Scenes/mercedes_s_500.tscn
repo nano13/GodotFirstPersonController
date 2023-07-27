@@ -1,8 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://cwuusdypv22c7"]
+[gd_scene load_steps=13 format=3 uid="uid://cwuusdypv22c7"]
 
 [ext_resource type="PackedScene" uid="uid://btxjok7j5ueg1" path="res://Models/mercedes_s500.blend" id="1_5isg3"]
 [ext_resource type="Script" path="res://src/vehicles/mercedes_s_500.gd" id="1_c52wh"]
+[ext_resource type="PackedScene" uid="uid://du3v2w0j6w6rl" path="res://Models/mercedes_s500_wheel.blend" id="3_1xj8t"]
 [ext_resource type="Script" path="res://src/vehicles/Camera3DMercedesS500.gd" id="3_r1sdc"]
+[ext_resource type="Material" uid="uid://bf6sv5phphcwo" path="res://Materials/mercedes_s500/wheel/0.8 R 0.001.tres" id="4_dehuc"]
+[ext_resource type="Material" uid="uid://c1w2ktw8kgs74" path="res://Materials/mercedes_s500/wheel/0.8 R 0.004.tres" id="5_w60tw"]
+[ext_resource type="Material" uid="uid://mor0ooqbuvnu" path="res://Materials/mercedes_s500/wheel/0.2 R 0.003.tres" id="6_42kyd"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5bq06"]
 size = Vector3(2.6306, 1, 1.27855)
@@ -42,6 +46,14 @@ suspension_max_force = 10000.0
 damping_compression = 0.7
 damping_relaxation = 0.9
 
+[node name="mercedes_s500_wheel" parent="VehicleWheel3DMercedesS500FrontLeft" instance=ExtResource("3_1xj8t")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.128201, -0.393451, 0)
+
+[node name="B3D Mercedes S500 V2_001" parent="VehicleWheel3DMercedesS500FrontLeft/mercedes_s500_wheel" index="0"]
+surface_material_override/0 = ExtResource("4_dehuc")
+surface_material_override/1 = ExtResource("5_w60tw")
+surface_material_override/2 = ExtResource("6_42kyd")
+
 [node name="VehicleWheel3DMercedesS500FrontRight" type="VehicleWheel3D" parent="."]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.03768, 0.405501, -2.0856)
@@ -55,9 +67,12 @@ suspension_max_force = 10000.0
 damping_compression = 0.7
 damping_relaxation = 0.9
 
+[node name="mercedes_s500_wheel" parent="VehicleWheel3DMercedesS500FrontRight" instance=ExtResource("3_1xj8t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.132038, -0.39969, 0)
+
 [node name="VehicleWheel3DMercedesS500RearLeft" type="VehicleWheel3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.01618, 0.405637, 1.32036)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.05408, 0.405637, 1.32036)
 wheel_radius = 0.4
 wheel_rest_length = 0.05
 suspension_travel = 0.1
@@ -66,9 +81,12 @@ suspension_max_force = 10000.0
 damping_compression = 0.7
 damping_relaxation = 0.9
 
+[node name="mercedes_s500_wheel" parent="VehicleWheel3DMercedesS500RearLeft" instance=ExtResource("3_1xj8t")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.139904, -0.395685, 0)
+
 [node name="VehicleWheel3DMercedesS500RearRight" type="VehicleWheel3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.993483, 0.406324, 1.3206)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.01682, 0.406324, 1.3206)
 wheel_radius = 0.4
 wheel_rest_length = 0.05
 suspension_travel = 0.1
@@ -76,6 +94,9 @@ suspension_stiffness = 60.0
 suspension_max_force = 10000.0
 damping_compression = 0.7
 damping_relaxation = 0.9
+
+[node name="mercedes_s500_wheel" parent="VehicleWheel3DMercedesS500RearRight" instance=ExtResource("3_1xj8t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.136657, -0.396207, 0)
 
 [node name="Camera3DMercedesS500" type="Camera3D" parent="."]
 unique_name_in_owner = true
@@ -116,3 +137,5 @@ shape = SubResource("BoxShape3D_hgnuv")
 [connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]
 
 [editable path="mercedes_s500"]
+[editable path="VehicleWheel3DMercedesS500FrontLeft/mercedes_s500_wheel"]
+[editable path="VehicleWheel3DMercedesS500FrontRight/mercedes_s500_wheel"]

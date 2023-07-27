@@ -59,7 +59,7 @@ script = ExtResource("3_uhser")
 
 [node name="PlayerFlashlight" type="SpotLight3D" parent="CShapeHead/CameraFPC"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000940442, -0.197474, 0)
-light_energy = 100.0
+light_energy = 20.0
 light_size = 0.5
 shadow_enabled = true
 distance_fade_enabled = true
