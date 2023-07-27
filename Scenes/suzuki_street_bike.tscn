@@ -123,7 +123,7 @@ transform = Transform3D(-6.55671e-08, 0, 1.5, 0, 1.5, 0, -1.5, 0, -6.55671e-08, 
 
 [node name="VehicleWheel3DRear" type="VehicleWheel3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0164611, 0.463317, 0.815524)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0164611, 0.463317, 0.817406)
 use_as_traction = true
 wheel_radius = 0.37
 suspension_stiffness = 80.0
