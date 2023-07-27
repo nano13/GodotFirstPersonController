@@ -3,6 +3,8 @@ class_name VehicleBody3DSuzukiStreetBike extends VehicleBody3D
 # https://www.b3dassets.com/2022/09/03/blender-motorcycle-3d-model-library/
 # https://www.youtube.com/watch?v=uKpO2X6wj4A
 
+@export_range(0, 100, 1) var brake_force: float = 20
+
 var max_rpm = 600
 var torque_min = 1600
 
@@ -184,9 +186,11 @@ func calculate_acceleration(delta: float):
 		wheel_rear.engine_force = acceleration * torque_min * ( 1 - rpm / max_rpm)
 		
 		if Input.is_action_pressed("jump_default"):
-			set_brake(20)
+			set_brake(brake_force)
 		if Input.is_action_just_released("jump_default"):
 			set_brake(0)
+	else:
+		wheel_rear.engine_force = 0
 
 func _process(delta):
 	#if is_recovering:
@@ -203,6 +207,8 @@ func _on_area_3d_body_exited(body):
 		is_player_in_range = false
 
 func enter_motorbike():
+	set_brake(0)
+	
 	if not is_crashed:
 		camera_moto.current = true
 		player.on_deactivate()
@@ -213,6 +219,8 @@ func enter_motorbike():
 		ray.set_clicks_enabled(false)
 
 func exit_motorbike():
+	set_brake(brake_force)
+	
 	camera_moto.current = false
 	player.on_activate()
 
