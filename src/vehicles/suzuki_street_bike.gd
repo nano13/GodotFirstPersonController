@@ -103,9 +103,9 @@ func calculate_lean():
 	
 	#var axis: Vector3 = linear_velocity.normalized()
 	#var angle: float = basis.get_rotation_quaternion().get_angle()
-	var axis: Vector3 = basis.get_rotation_quaternion().get_axis().normalized()
+	#var axis: Vector3 = basis.get_rotation_quaternion().get_axis().normalized()
 	#angular_velocity = calc_angular_velocity_(basis, Quaternion(axis, -theta))
-	#angular_velocity = calc_angular_velocity_(basis, Quaternion(basis.z, theta))
+	angular_velocity = calc_angular_velocity_(basis, Quaternion(basis.z, theta))
 	
 	#angular_velocity = calc_angular_velocity_(Quaternion(Vector3(0, 0, 1), rotation.z), Quaternion(Vector3(0, 0, 1), theta))
 
