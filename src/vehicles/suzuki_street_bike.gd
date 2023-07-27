@@ -15,6 +15,9 @@ var is_crashed: bool = false
 var is_recovering: bool = false
 
 var axis_left_right: float = 0
+var balance_left_right: float = 0
+
+var steering_axis: Vector3 = Vector3(0.13, 1, 0).normalized()
 
 @onready var camera_moto: Camera3D = get_node("%Camera3DSuzuki")
 @onready var camera_fpc: Camera3D = get_node("%CameraFPC")
@@ -25,6 +28,8 @@ var axis_left_right: float = 0
 
 @onready var wheel_front: VehicleWheel3D = get_node("%VehicleWheel3DFront")
 @onready var wheel_rear: VehicleWheel3D = get_node("%VehicleWheel3DRear")
+@onready var steering_fork: Node3D = get_node("%suzuki_motorbike_steering")
+@onready var steering_wheel: VehicleWheel3D = get_node("%VehicleWheel3DSteering")
 
 @onready var test: CSGCylinder3D = get_node("Node3D/CSGCylinder3Daiaaa")
 
@@ -34,19 +39,20 @@ func _ready():
 
 func _integrate_forces(state):
 	# only move the bike when we are "sitting on it"
-	if camera_moto.current:
-		calculate_lean()
-		pass
+	#if camera_moto.current:
+	calculate_lean()
 
 func _physics_process(delta):
 	# for some reason Input.get_axis will not work properly if called from _integrate_forces
 	# but we need to use it there, so we put it into a variable here
-	axis_left_right = Input.get_axis("vehicle_right", "vehicle_left")
+	if camera_moto.current:
+		axis_left_right = Input.get_axis("vehicle_right", "vehicle_left")
+		balance_left_right = Input.get_axis("vehicle_balance_left", "vehicle_balance_right")
 	
 	if is_recovering:
 		recover_motorbike()
 	else:
-		freeze_if_not_used_and_crashed()
+		#freeze_if_not_used_and_crashed()
 		#disable_player_head_if_no_player()
 		
 		calculate_acceleration(delta)
@@ -101,13 +107,36 @@ func calculate_lean():
 	#steering = lerp(steering, rotation.z/2, 1)
 	steering = steer
 	
+	# the steering angle is somewhat tilted. we need to try to counteradjust to that
+	steering_fork.rotation = Vector3(0.4 + -(abs(steering)/15), steering, steering * 0.5)
+	
+	#print(Vector3(0.13, 1, 0).normalized())
 	#var axis: Vector3 = linear_velocity.normalized()
 	#var angle: float = basis.get_rotation_quaternion().get_angle()
 	#var axis: Vector3 = basis.get_rotation_quaternion().get_axis().normalized()
 	#angular_velocity = calc_angular_velocity_(basis, Quaternion(axis, -theta))
-	angular_velocity = calc_angular_velocity_(basis, Quaternion(basis.z, theta))
+	#angular_velocity = calc_angular_velocity_(basis, Quaternion(basis.z, theta))
+	
+	#angular_velocity = calc_angular_velocity_(basis, basis.rotated(basis.z, theta))
+	#angular_velocity = calc_angular_velocity_(basis, basis.rotated(basis.z, 0))
+	#angular_velocity = calc_angular_velocity_(basis, Quaternion(basis.z, theta) * basis.get_rotation_quaternion())
 	
 	#angular_velocity = calc_angular_velocity_(Quaternion(Vector3(0, 0, 1), rotation.z), Quaternion(Vector3(0, 0, 1), theta))
+	
+	#print(theta)
+	#print(rotation.z)
+	#center_of_mass.x = rotation.z
+	#center_of_mass.x = lerp(0.0, rotation.z * 2, 1)
+	
+	if rotation.z > theta + 0.001 or rotation.z < theta - 0.001:
+		#center_of_mass.x = rotation.z
+		pass
+	
+	#center_of_mass.x = lerp(-theta, rotation.z, 1)
+	#center_of_mass.x = rotation.z #steering
+	#if not balance_left_right == 0:
+#		center_of_mass.x = balance_left_right / 5
+	#print(center_of_mass)
 
 func calc_angular_velocity_(from_basis: Basis, to_basis: Basis) -> Vector3:
 	#https://www.reddit.com/r/godot/comments/q1lawy/basis_and_angular_velocity_question/
