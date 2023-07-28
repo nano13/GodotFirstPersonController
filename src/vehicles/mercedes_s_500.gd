@@ -126,7 +126,11 @@ func exit_car():
 		exited = true
 	
 	if exited:
-		player.set_camera_rotation(camera_car.global_rotation)
+		var rot: Vector3 = camera_car.global_rotation
+		# if the car is tilted or fallen over on exit, we do not want to walk around after with a tilted head ...
+		rot.x = 0
+		rot.z = 0
+		player.set_camera_rotation(rot)
 		camera_car.current = false
 		
 		set_brake(brake_force)

@@ -212,7 +212,12 @@ func exit_motorbike():
 		exited = true
 	
 	if exited:
-		player.set_camera_rotation(camera_moto.global_rotation)
+		# look roughly in the same direction (y-axis only) as before on the vehicle
+		var rot: Vector3 = camera_moto.global_rotation
+		# if the bike is tilted or fallen over on exit, we do not want to walk around after with a tilted head ...
+		rot.x = 0
+		rot.z = 0
+		player.set_camera_rotation(rot)
 		camera_moto.current = false
 		
 		set_brake(brake_force)
@@ -227,17 +232,9 @@ func recover_motorbike():
 		
 		set_freeze_enabled(true)
 		
-		transform.basis.x.x = 1
-		transform.basis.x.y = 0
-		transform.basis.x.z = 0
-		
-		transform.basis.y.x = 0
-		transform.basis.y.y = 1
-		transform.basis.y.z = 0
-		
-		transform.basis.z.x = 0
-		transform.basis.z.y = 0
-		transform.basis.z.z = 1
+		transform.basis.x = Vector3(1, 0, 0)
+		transform.basis.y = Vector3(0, 1, 0)
+		transform.basis.z = Vector3(0, 0, 1)
 		
 		if collision_point.distance_to(player.position) > 1.5:
 			position = Vector3(collision_point.x, collision_point.y + .5, collision_point.z)
