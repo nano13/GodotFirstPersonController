@@ -6,6 +6,7 @@ class_name VehicleBody3DSuzukiStreetBike extends VehicleBody3D
 @export_category("Suzuki_Street_Bike")
 
 @export_range(0, 100, 1) var brake_force: float = 20
+@export_range(0, 10, 0.5) var wheel_distance: float = 1.5
 
 var max_rpm = 600
 var torque_min = 1600
@@ -38,6 +39,7 @@ var steering_axis: Vector3 = Vector3(0.13, 1, 0).normalized()
 @onready var exit_shape_left: CollisionShape3D = get_node("%CollisionShape3DExitLeft")
 @onready var exit_shape_right: CollisionShape3D = get_node("%CollisionShape3DExitRight")
 
+# only allow leaving the vehicle/spawning the player here if there is nothing in the way
 var exit_shape_left_body_count: int = 0
 var exit_shape_right_body_count: int = 0
 
@@ -50,7 +52,10 @@ func _ready():
 func _integrate_forces(state):
 	# only move the bike when we are "sitting on it"
 	#if camera_moto.current:
-	calculate_lean()
+	var theta:float = calculate_lean_angle_theta()
+	
+	lean_with_angular_velocity(theta)
+	#lean_with_center_of_mass(theta)
 
 func _physics_process(delta):
 	# for some reason Input.get_axis will not work properly if called from _integrate_forces
@@ -93,36 +98,41 @@ func disable_player_head_if_no_player():
 	else:
 		player_head.disabled = false
 
-func calculate_lean():
+func calculate_lean_angle_theta() -> float:
 	# to make it more realistic, the faster we go, the less we can turn the wheel
 	var speed: float = linear_velocity.length()
 	var steerdamp: float = clamp(speed/4, 2, 50)
 	# use our axis_left_right input to turn the wheel
 	var turn: float = axis_left_right / steerdamp
 	# smooth out our steering movements
-	var steer: float = lerp(steering, turn, .1)
+	steering = lerp(steering, turn, .1)
 	
 	# calculate turning radius
-	# 1.5 is the distance between the wheels in meter
-	# steer is the angle of the wheel in radians
-	var radius: float = ( 1.5 / sin(steer) )
+	var radius: float = ( wheel_distance / sin(steering) )
 	
 	# calculate the needed inclination angle theta
 	var theta: float = atan(speed**2 / (gravity * radius))
 	
 	test.rotation.z = lerp(test.rotation.z, theta + PI/2, 1)
 	
-	# https://www.youtube.com/watch?v=uKpO2X6wj4A
-	#angular_velocity = lerp(angular_velocity, transform.basis.z * axis_left_right, 1)
-	#steering = lerp(steering, rotation.z/2, 1)
-	steering = steer
-	
+	return theta
+
+func lean_with_angular_velocity(theta: float) -> void:
 	# the steering angle is somewhat tilted. we need to try to counteradjust to that
 	steering_fork.rotation = Vector3(0.4 + -(abs(steering)/15), steering, steering * 0.5)
 	
 	angular_velocity = calc_angular_velocity_(basis, basis.rotated(basis.z, theta))
 	
 	center_of_mass.x = rotation.z
+
+func lean_with_center_of_mass(theta: float) -> void:
+	pass
+
+## a very basic approach
+func lean_basic() -> void:
+	# https://www.youtube.com/watch?v=uKpO2X6wj4A
+	angular_velocity = lerp(angular_velocity, transform.basis.z * axis_left_right, 1)
+	steering = lerp(steering, rotation.z/2, 1)
 
 func calc_angular_velocity_(from_basis: Basis, to_basis: Basis) -> Vector3:
 	#https://www.reddit.com/r/godot/comments/q1lawy/basis_and_angular_velocity_question/
@@ -138,33 +148,9 @@ func calc_angular_velocity_(from_basis: Basis, to_basis: Basis) -> Vector3:
 	
 	return axis * angle
 
-func calc_angular_velocity(from_basis: Basis, to_basis: Basis) -> Vector3:
-	#https://www.reddit.com/r/godot/comments/q1lawy/basis_and_angular_velocity_question/
-	
-	var q1: Quaternion = from_basis.get_rotation_quaternion()
-	var q2: Quaternion = to_basis.get_rotation_quaternion()
-	
-	# Quaternion that transforms q1 into q2
-	var qt = q2 * q1.inverse()
-	
-	# Angle from quaternion
-	var angle = 2 * acos(qt.w)
-	
-	# Prevent divide by zero
-	if angle < 0.0001:
-		return Vector3.ZERO
-	
-	# Axis from quaternion
-	var axis = Vector3(qt.x, qt.y, qt.z) / sqrt(1-qt.w*qt.w)
-	
-	return axis * angle
-
 func calculate_acceleration(delta: float):
 	if camera_moto.current:
 		var rpm: float = clamp(wheel_rear.get_rpm(), -1 * max_rpm, 0)
-		
-		#steering = lerp(steering, Input.get_axis("vehicle_right", "vehicle_left") * 0.4, 5 * delta)
-		#####steering = lerp(steering, Input.get_axis("move_right", "move_left") * 0.4, 5 * delta)
 		
 		var acceleration: float = Input.get_axis("vehicle_accelerate", "vehicle_decelerate")
 		wheel_rear.engine_force = acceleration * torque_min * ( 1 - rpm / max_rpm)

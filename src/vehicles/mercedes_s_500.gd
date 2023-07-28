@@ -32,6 +32,7 @@ var axis_left_right: float = 0
 @onready var exit_shape_left: CollisionShape3D = get_node("%CollisionShape3DExitLeft")
 @onready var exit_shape_right: CollisionShape3D = get_node("%CollisionShape3DExitRight")
 
+# only allow leaving the vehicle/spawning the player here if there is nothing in the way
 var exit_shape_left_body_count: int = 0
 var exit_shape_right_body_count: int = 0
 
@@ -126,6 +127,7 @@ func exit_car():
 		exited = true
 	
 	if exited:
+		# look roughly in the same direction (y-axis only) as before on the vehicle
 		var rot: Vector3 = camera_car.global_rotation
 		# if the car is tilted or fallen over on exit, we do not want to walk around after with a tilted head ...
 		rot.x = 0
