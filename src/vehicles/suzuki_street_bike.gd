@@ -54,10 +54,13 @@ func _integrate_forces(state):
 	#if camera_moto.current:
 	var theta:float = calculate_lean_angle_theta()
 	
-	lean_with_angular_velocity(theta)
-	#lean_with_center_of_mass(theta)
+	#lean_with_angular_velocity(theta)
+	lean_with_center_of_mass(theta)
 
 func _physics_process(delta):
+	# the steering angle is somewhat tilted. we need to try to counteradjust to that
+	steering_fork.rotation = Vector3(0.4 + -(abs(steering)/15), steering, steering * 0.5)
+	
 	# for some reason Input.get_axis will not work properly if called from _integrate_forces
 	# but we need to use it there, so we put it into a variable here
 	if camera_moto.current:
@@ -101,7 +104,7 @@ func disable_player_head_if_no_player():
 func calculate_lean_angle_theta() -> float:
 	# to make it more realistic, the faster we go, the less we can turn the wheel
 	var speed: float = linear_velocity.length()
-	var steerdamp: float = clamp(speed/4, 2, 50)
+	var steerdamp: float = clamp(speed/10, 2, 50)
 	# use our axis_left_right input to turn the wheel
 	var turn: float = axis_left_right / steerdamp
 	# smooth out our steering movements
@@ -118,15 +121,18 @@ func calculate_lean_angle_theta() -> float:
 	return theta
 
 func lean_with_angular_velocity(theta: float) -> void:
-	# the steering angle is somewhat tilted. we need to try to counteradjust to that
-	steering_fork.rotation = Vector3(0.4 + -(abs(steering)/15), steering, steering * 0.5)
 	
-	angular_velocity = calc_angular_velocity_(basis, basis.rotated(basis.z, theta))
+	angular_velocity = calc_angular_velocity(basis, basis.rotated(basis.z, theta))
 	
 	center_of_mass.x = rotation.z
 
 func lean_with_center_of_mass(theta: float) -> void:
-	pass
+	print("relation: ", theta / rotation.z)
+	print("diff: ", theta - rotation.z)
+	
+	#center_of_mass.x = rotation.z
+	
+	center_of_mass.x = (rotation.z - theta) * 2
 
 ## a very basic approach
 func lean_basic() -> void:
@@ -134,7 +140,7 @@ func lean_basic() -> void:
 	angular_velocity = lerp(angular_velocity, transform.basis.z * axis_left_right, 1)
 	steering = lerp(steering, rotation.z/2, 1)
 
-func calc_angular_velocity_(from_basis: Basis, to_basis: Basis) -> Vector3:
+func calc_angular_velocity(from_basis: Basis, to_basis: Basis) -> Vector3:
 	#https://www.reddit.com/r/godot/comments/q1lawy/basis_and_angular_velocity_question/
 	
 	var q1: Quaternion = from_basis.get_rotation_quaternion()
