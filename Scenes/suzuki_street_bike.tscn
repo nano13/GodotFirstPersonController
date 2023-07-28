@@ -48,7 +48,6 @@ surface_material_override/10 = ExtResource("7_w5qt1")
 [node name="CollisionShape3DHead" type="CollisionShape3D" parent="."]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00321764, 1.07123, 7.33137e-05)
-visible = false
 shape = SubResource("CapsuleShape3D_kcw31")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
@@ -112,13 +111,6 @@ wheel_radius = 0.37
 suspension_stiffness = 80.0
 damping_compression = 1.9
 damping_relaxation = 2.0
-
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="VehicleWheel3DFront"]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.0353661, 0.00089848, 0.00127876)
-visible = false
-radius = 0.35157
-height = 1.88687
-sides = 64
 
 [node name="suzuki_motorbike_wheel_front" parent="VehicleWheel3DFront" instance=ExtResource("10_6b6o3")]
 transform = Transform3D(-6.55671e-08, 0, 1.5, 0, 1.5, 0, -1.5, 0, -6.55671e-08, -0.000174283, -0.363053, -0.00298738)
