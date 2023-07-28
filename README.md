@@ -3,7 +3,7 @@ This project contains the implementation of a First Person character controller 
 
 The code found in [player.gd](Player/player.gd) uses vector forces to move the player. You can tweak the values of the forces in the editor directly. The _velocity_ of the player is calculated as a result of the vector sum of different vector forces: walk, jump, gravity and drag.
 
-This project contains [Blender](https://www.blender.org/) Models so in order to be able to run it, you need to have Blender installed and set up the path in your Godot [Editor-Settings](https://www.reddit.com/r/godot/comments/11iry2w/i_dont_see_many_or_any_people_talking_about_this/) -> FileSystem -> Import
+This project contains [Blender](https://www.blender.org/) Models so in order to be able to run it, you need to have Blender installed and set up the path in your Godot [Editor-Settings](https://www.reddit.com/r/godot/comments/11iry2w/i_dont_see_many_or_any_people_talking_about_this/) -> FileSystem -> Import. After setting up this path, you will need to restart Godot.
 
 The main scene is a _Sandbox_ scene used to test the controls:
 
