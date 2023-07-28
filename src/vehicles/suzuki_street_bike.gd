@@ -120,33 +120,9 @@ func calculate_lean():
 	# the steering angle is somewhat tilted. we need to try to counteradjust to that
 	steering_fork.rotation = Vector3(0.4 + -(abs(steering)/15), steering, steering * 0.5)
 	
-	#print(Vector3(0.13, 1, 0).normalized())
-	#var axis: Vector3 = linear_velocity.normalized()
-	#var angle: float = basis.get_rotation_quaternion().get_angle()
-	#var axis: Vector3 = basis.get_rotation_quaternion().get_axis().normalized()
-	#angular_velocity = calc_angular_velocity_(basis, Quaternion(axis, -theta))
-	#angular_velocity = calc_angular_velocity_(basis, Quaternion(basis.z, theta))
+	angular_velocity = calc_angular_velocity_(basis, basis.rotated(basis.z, theta))
 	
-	#angular_velocity = calc_angular_velocity_(basis, basis.rotated(basis.z, theta))
-	#angular_velocity = calc_angular_velocity_(basis, basis.rotated(basis.z, 0))
-	#angular_velocity = calc_angular_velocity_(basis, Quaternion(basis.z, theta) * basis.get_rotation_quaternion())
-	
-	#angular_velocity = calc_angular_velocity_(Quaternion(Vector3(0, 0, 1), rotation.z), Quaternion(Vector3(0, 0, 1), theta))
-	
-	#print(theta)
-	#print(rotation.z)
 	center_of_mass.x = rotation.z
-	#center_of_mass.x = lerp(0.0, rotation.z * 2, 1)
-	
-	if rotation.z > theta + 0.001 or rotation.z < theta - 0.001:
-		#center_of_mass.x = rotation.z
-		pass
-	
-	#center_of_mass.x = lerp(-theta, rotation.z, 1)
-	#center_of_mass.x = rotation.z #steering
-	#if not balance_left_right == 0:
-#		center_of_mass.x = balance_left_right / 5
-	#print(center_of_mass)
 
 func calc_angular_velocity_(from_basis: Basis, to_basis: Basis) -> Vector3:
 	#https://www.reddit.com/r/godot/comments/q1lawy/basis_and_angular_velocity_question/
