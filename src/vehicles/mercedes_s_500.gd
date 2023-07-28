@@ -126,7 +126,7 @@ func exit_car():
 		exited = true
 	
 	if exited:
-		player.set_camera_rotation(camera_car.rotation)
+		player.set_camera_rotation(camera_car.global_rotation)
 		camera_car.current = false
 		
 		set_brake(brake_force)

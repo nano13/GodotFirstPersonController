@@ -127,7 +127,7 @@ func calculate_lean():
 	#angular_velocity = calc_angular_velocity_(basis, Quaternion(axis, -theta))
 	#angular_velocity = calc_angular_velocity_(basis, Quaternion(basis.z, theta))
 	
-	angular_velocity = calc_angular_velocity_(basis, basis.rotated(basis.z, theta))
+	#angular_velocity = calc_angular_velocity_(basis, basis.rotated(basis.z, theta))
 	#angular_velocity = calc_angular_velocity_(basis, basis.rotated(basis.z, 0))
 	#angular_velocity = calc_angular_velocity_(basis, Quaternion(basis.z, theta) * basis.get_rotation_quaternion())
 	
@@ -236,7 +236,7 @@ func exit_motorbike():
 		exited = true
 	
 	if exited:
-		player.set_camera_rotation(camera_moto.rotation)
+		player.set_camera_rotation(camera_moto.global_rotation)
 		camera_moto.current = false
 		
 		set_brake(brake_force)

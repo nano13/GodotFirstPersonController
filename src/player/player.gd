@@ -21,8 +21,6 @@ var jump_vel: Vector3 # Jumping velocity
 # if we transit from one ladder to another, we would like to stay in "ladder"-mode and not just fall off instead
 var ladder_counter: int = 0
 
-var is_active: bool = true
-
 func _ready():
 	state_movement_land.set_player(self)
 	state_movement_water.set_player(self)
@@ -30,7 +28,6 @@ func _ready():
 
 func on_activate():
 	state_machine.set_state(state_last)
-	is_active = true
 	
 	player_head.disabled = false
 	player_body.disabled = false
@@ -38,7 +35,6 @@ func on_activate():
 func on_deactivate():
 	state_last = state_machine.get_state()
 	state_machine.set_state(state_no)
-	is_active = false
 	
 	player_head.disabled = true
 	player_body.disabled = true
