@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dgvrdpu50rhu4"
-path="res://.godot/imported/screen_mercedes_s500.png-82080c26fd545e6bde65942233dbd6f5.ctex"
+uid="uid://cdo12fgdpqi2c"
+path="res://.godot/imported/screen_suzuki_streetbike.png-a296788d36d84ac4c17e44a88f363cfb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/screen_mercedes_s500.png"
-dest_files=["res://.godot/imported/screen_mercedes_s500.png-82080c26fd545e6bde65942233dbd6f5.ctex"]
+source_file="res://Assets/screenshots/screen_suzuki_streetbike.png"
+dest_files=["res://.godot/imported/screen_suzuki_streetbike.png-a296788d36d84ac4c17e44a88f363cfb.ctex"]
 
 [params]
 

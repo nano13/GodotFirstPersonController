@@ -109,8 +109,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0106844, 0.426289, -0.8704
 use_as_steering = true
 wheel_radius = 0.37
 suspension_stiffness = 80.0
-damping_compression = 1.9
-damping_relaxation = 2.0
+damping_compression = 0.8
+damping_relaxation = 0.9
 
 [node name="suzuki_motorbike_wheel_front" parent="VehicleWheel3DFront" instance=ExtResource("10_6b6o3")]
 transform = Transform3D(-6.55671e-08, 0, 1.5, 0, 1.5, 0, -1.5, 0, -6.55671e-08, -0.000174283, -0.363053, -0.00298738)
@@ -121,8 +121,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0164611, 0.452967, 0.81176)
 use_as_traction = true
 wheel_radius = 0.37
 suspension_stiffness = 80.0
-damping_compression = 1.9
-damping_relaxation = 2.0
+damping_compression = 0.8
+damping_relaxation = 0.9
 
 [node name="suzuki_motorbike_wheel_rear" parent="VehicleWheel3DRear" instance=ExtResource("11_ui01t")]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, -0.362516, 0)

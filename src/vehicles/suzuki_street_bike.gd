@@ -108,13 +108,16 @@ func calculate_lean_angle_theta() -> float:
 	# use our axis_left_right input to turn the wheel
 	var turn: float = axis_left_right / steerdamp
 	# smooth out our steering movements
-	steering = lerp(steering, turn, .1)
+	var steer: float = lerp(steering, turn, .1)
 	
 	# calculate turning radius
-	var radius: float = ( wheel_distance / sin(steering) )
-	
+	#var radius: float = ( wheel_distance / sin(steer) )
 	# calculate the needed inclination angle theta
-	var theta: float = atan(speed**2 / (gravity * radius))
+	#var theta: float = atan(speed**2 / (gravity * radius))
+	# or just put everything together in one formula
+	var theta: float = atan(speed**2 / (gravity * (wheel_distance / sin(steer))))
+	
+	steering = steer
 	
 	test.rotation.z = lerp(test.rotation.z, theta + PI/2, 1)
 	
@@ -127,12 +130,13 @@ func lean_with_angular_velocity(theta: float) -> void:
 	center_of_mass.x = rotation.z
 
 func lean_with_center_of_mass(theta: float) -> void:
-	print("relation: ", theta / rotation.z)
-	print("diff: ", theta - rotation.z)
+	#print("relation: ", theta / rotation.z)
+	#print("diff: ", rotation.z - theta)
 	
 	#center_of_mass.x = rotation.z
 	
-	center_of_mass.x = (rotation.z - theta) * 2
+	var diff: float = rotation.z - theta
+	center_of_mass.x = diff * 2
 
 ## a very basic approach
 func lean_basic() -> void:
