@@ -1,4 +1,9 @@
 # Godot 4 - Advanced First Person and Vehicle (Car, Motorbike) Controller
+
+Open Bugs:
+  - https://github.com/godotengine/godot/issues/80049
+  - https://github.com/godotengine/godot/issues/76338
+
 This project contains the implementation of a First Person character controller for [Godot 4](https://godotengine.org/) for walking on <b>Land</b>, swimming in <b>Water</b> and moving <b>Ladders</b> up and down.
 
 The code found in [player.gd](Player/player.gd) uses vector forces to move the player. You can tweak the values of the forces in the editor directly. The _velocity_ of the player is calculated as a result of the vector sum of different vector forces: walk, jump, gravity and drag.
