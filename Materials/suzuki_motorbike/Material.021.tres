@@ -1,9 +1,0 @@
-[gd_resource type="StandardMaterial3D" format=3 uid="uid://cbn7h3mndtysj"]
-
-[resource]
-resource_name = "Material.021"
-transparency = 1
-cull_mode = 2
-vertex_color_use_as_albedo = true
-albedo_color = Color(0.490196, 0.490196, 0.490196, 0.67451)
-metallic = 1.0
