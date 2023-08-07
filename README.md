@@ -12,7 +12,7 @@ This project contains [Blender](https://www.blender.org/) Models so in order to 
 
 The main scene is a _Sandbox_ scene used to test the controls:
 
-![EditorView](Assets/screenshots/screen_sandbox.png)
+![EditorView](assets/screenshots/screen_sandbox.png)
 
 ## Controls Player (FPS-Controller)
 | Keys | Action Name | Description |
@@ -31,10 +31,10 @@ You can change any of this keys in: Project Settings → Input Map.
 
 ## Controls Vehicles
 [Source of the Car-Modell](https://www.b3dassets.com/2021/05/29/cars-3d-model-library/)
-![EditorView](Assets/screenshots/screen_mercedes_s500.png)
+![EditorView](assets/screenshots/screen_mercedes_s500.png)
 
 [Source of the Motorbike-Modell](https://www.b3dassets.com/2022/09/03/blender-motorcycle-3d-model-library/)
-![EditorView](Assets/screenshots/screen_suzuki_streetbike.png)
+![EditorView](assets/screenshots/screen_suzuki_streetbike.png)
 
 You need to stand close to the Motorbike in order to enter it. To enter the car, you need to stand directly at one of the front doors.
 | Keys           | Action Name                                | Description              |
