@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c82vttiixik57"
-path.s3tc="res://.godot/imported/drevco222.tga-a1a03220a1b10f0ca2703d4bedcd2f18.s3tc.ctex"
+uid="uid://c2xnrl0gkw8ix"
+path.s3tc="res://.godot/imported/dv222.tga-8c5e141aea209ae52c46e4e20b1563d4.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://models/textures/drevco222.tga"
-dest_files=["res://.godot/imported/drevco222.tga-a1a03220a1b10f0ca2703d4bedcd2f18.s3tc.ctex"]
+source_file="res://models/textures/mercedes_s500/dv222.tga"
+dest_files=["res://.godot/imported/dv222.tga-8c5e141aea209ae52c46e4e20b1563d4.s3tc.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c41yo1q1cgkf5"
-path="res://.godot/imported/logo.tga-ae2f3b4dcb34ec009d87904a43af4395.ctex"
+path="res://.godot/imported/logo.tga-6af03e534eefc9ca6509815c71400634.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://models/textures/logo.tga"
-dest_files=["res://.godot/imported/logo.tga-ae2f3b4dcb34ec009d87904a43af4395.ctex"]
+source_file="res://models/textures/mercedes_s500/logo.tga"
+dest_files=["res://.godot/imported/logo.tga-6af03e534eefc9ca6509815c71400634.ctex"]
 
 [params]
 

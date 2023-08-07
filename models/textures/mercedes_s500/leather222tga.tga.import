@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dkqxa3anhto25"
-path.s3tc="res://.godot/imported/velbag222tga.tga-8f56e30ed1ae1091ef6514266d622be8.s3tc.ctex"
+uid="uid://d0mq5yjphyh8s"
+path.s3tc="res://.godot/imported/leather222tga.tga-ea42d90bcd88029b7e30edb988924df0.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://models/textures/velbag222tga.tga"
-dest_files=["res://.godot/imported/velbag222tga.tga-8f56e30ed1ae1091ef6514266d622be8.s3tc.ctex"]
+source_file="res://models/textures/mercedes_s500/leather222tga.tga"
+dest_files=["res://.godot/imported/leather222tga.tga-ea42d90bcd88029b7e30edb988924df0.s3tc.ctex"]
 
 [params]
 

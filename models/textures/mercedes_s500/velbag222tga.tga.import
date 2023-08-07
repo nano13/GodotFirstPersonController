@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cqce5bblylj5e"
-path.s3tc="res://.godot/imported/intlights222.tga-031ab79f24e7d51a968c39e02c93fd43.s3tc.ctex"
+uid="uid://dkqxa3anhto25"
+path.s3tc="res://.godot/imported/velbag222tga.tga-ac130455bb84bd9292c1bca62e4332ff.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://models/textures/intlights222.tga"
-dest_files=["res://.godot/imported/intlights222.tga-031ab79f24e7d51a968c39e02c93fd43.s3tc.ctex"]
+source_file="res://models/textures/mercedes_s500/velbag222tga.tga"
+dest_files=["res://.godot/imported/velbag222tga.tga-ac130455bb84bd9292c1bca62e4332ff.s3tc.ctex"]
 
 [params]
 

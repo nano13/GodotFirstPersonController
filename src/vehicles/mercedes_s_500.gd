@@ -53,7 +53,7 @@ func _process(delta):
 func _physics_process(delta):
 	#freeze_if_not_used_and_crashed()
 	
-	print("speed: ", linear_velocity.length())
+	#print("speed: ", linear_velocity.length())
 	if camera_car.current:
 		# for some reason Input.get_axis will not work properly if called from _integrate_forces
 		# but we need to use it there, so we put it into a variable here
