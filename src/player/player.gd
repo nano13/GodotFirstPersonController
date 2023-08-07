@@ -99,8 +99,11 @@ func on_water_entered():
 func on_water_exited():
 	print("water exited")
 	
-	match state_machine.get_state():
+	var state: State = state_machine.get_state()
+	match state:
 		state_movement_water:
+			state.on_water_exited()
+			
 			var velocities = state_machine.get_velocities()
 			
 			state_machine.set_state(state_movement_land)

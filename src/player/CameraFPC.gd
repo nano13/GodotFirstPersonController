@@ -2,9 +2,15 @@ class_name CameraFPC extends Camera3D
 
 @export_range(0.1, 30, 0.05, "or_greater") var sens_mouse: float = 14
 @export_range(0.1, 30, 0.05, "or_greater") var sens_gamepad: float = 5
+@export_range(1, 30, 1) var swim_sideways_animation_factor: float = 10
 
+var input_vector_last: Vector2 = Vector2(0, 0)
 
 var look_dir: Vector2 # Input direction for look/aim
+
+var rot_z_target: float = 0
+# 1/20 * 90 degrees (PI/2 in radians) = 4.5 degrees
+var rot_z_factor: float = PI/2 / 20
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -24,7 +30,7 @@ func _physics_process(delta: float) -> void:
 		_handle_joypad_camera_rotation(delta)
 
 func _process(delta: float):
-	pass
+	rotation.z = lerp(rotation.z, rot_z_target, delta * swim_sideways_animation_factor)
 
 func _rotate_camera(sens_mod: float = 1.0) -> void:
 	rotation.y -= look_dir.x * sens_mouse * sens_mod
@@ -39,3 +45,18 @@ func _handle_joypad_camera_rotation(delta: float, sens_mod: float = 1.0) -> void
 		rotation.x = clamp(rotation.x - look_dir.y * sens_gamepad * sens_mod, -1.5, 1.5)
 		
 		look_dir = Vector2.ZERO
+
+## rotate the camera if swimming sideways to make it feel more realistic
+func swim_move_sideways(input_vector: Vector2) -> float:
+	
+	if input_vector.x != 0:
+		if not input_vector_last == input_vector:
+			rot_z_target = rot_z_factor * -input_vector.x
+	else:
+		rot_z_target = 0
+	
+	input_vector_last = input_vector
+	return rotation.z
+
+func set_rot_z_target(target: float):
+	rot_z_target = target

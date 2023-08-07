@@ -18,7 +18,7 @@ class_name MovementWater extends State
 @export_range(1, 50, 1) var swim_vertical_default = 5
 @export_range(1, 50, 1) var swim_vertical_fast = 10
 
-@onready var camera_fp: Camera3D = get_node("%CameraFPC")
+@onready var camera_fpc: Camera3D = get_node("%CameraFPC")
 #@onready var raycast_up: RayCast3D = get_node("%RayTop")
 @onready var raycast_down_swim: RayCast3D = get_node("%RayDownSwim")
 @onready var player_capsule: CollisionShape3D = get_node("%CShapeBody")
@@ -38,6 +38,10 @@ enum SpeedStates {
 	SLOW
 }
 var state_speed_current = SpeedStates.FAST
+
+## during swimming we want to tilt the camera sideways a bit for a more realistic feeling.
+## we need to adjust the movement accordingly to avoid moving diagonally up
+var camera_rot_z: float
 
 # Called when the node enters the scene tree for the first time.
 func ready():
@@ -78,8 +82,10 @@ func walk(delta: float) -> Vector3:
 	player_adjust_speed()
 	
 	move_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
+	camera_rot_z = camera_fpc.swim_move_sideways(move_dir)
 	
-	var _forward: Vector3 = camera_fp.transform.basis * Vector3(move_dir.x, 0, move_dir.y)
+	#var _forward: Vector3 = camera_fpc.transform.basis * Vector3(move_dir.x, 0, move_dir.y) * Vector3(abs(camera_rot_z), 1, abs(camera_rot_z)).normalized()
+	var _forward: Vector3 = camera_fpc.transform.basis * Vector3(move_dir.x, abs(camera_rot_z), move_dir.y)
 	var walk_dir: Vector3 = Vector3(_forward.x, _forward.y, _forward.z).normalized()
 	walk_vel = walk_vel.move_toward(walk_dir * speed * move_dir.length(), acceleration_water * delta)
 	
@@ -130,3 +136,6 @@ func process(delta):
 	#player_capsule.shape.height = clamp(player_capsule.shape.height, player_height_swimming *10, player_height_default)
 	
 	player_capsule.shape.height = player_height_swimming
+
+func on_water_exited():
+	camera_fpc.set_rot_z_target(0)
