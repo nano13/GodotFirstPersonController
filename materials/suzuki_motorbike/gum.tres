@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://t552uy2l0f6o"]
+
+[resource]
+resource_name = "gum"
+cull_mode = 2
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.497533, 0.497533, 0.497533, 1)
+roughness = 0.5

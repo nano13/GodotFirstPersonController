@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://b42hb4b8518d3"]
+
+[resource]
+resource_name = "Gold 10K B3D Material"
+cull_mode = 2
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.937255, 0.827451, 0.580392, 1)
+metallic = 1.0
+roughness = 0.14

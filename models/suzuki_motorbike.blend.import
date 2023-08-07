@@ -1,0 +1,111 @@
+[remap]
+
+importer="scene"
+importer_version=1
+type="PackedScene"
+uid="uid://3genr5akjgoh"
+path="res://.godot/imported/suzuki_motorbike.blend-c480ced56d12eea020b746ab35600a9a.scn"
+
+[deps]
+
+source_file="res://models/suzuki_motorbike.blend"
+dest_files=["res://.godot/imported/suzuki_motorbike.blend-c480ced56d12eea020b746ab35600a9a.scn"]
+
+[params]
+
+nodes/root_type="Node3D"
+nodes/root_name="Scene Root"
+nodes/apply_root_scale=true
+nodes/root_scale=1.0
+meshes/ensure_tangents=true
+meshes/generate_lods=true
+meshes/create_shadow_meshes=true
+meshes/light_baking=1
+meshes/lightmap_texel_size=0.2
+skins/use_named_skins=true
+animation/import=true
+animation/fps=30
+animation/trimming=false
+animation/remove_immutable_tracks=true
+import_script/path=""
+_subresources={
+"materials": {
+"0.1 R 0.2": {
+"use_external/enabled": true,
+"use_external/path": "res://Materials/suzuki_motorbike/0.1 R 0.2.tres"
+},
+"0.1 R 0.3": {
+"use_external/enabled": true,
+"use_external/path": "res://Materials/suzuki_motorbike/0.1 R 0.3.tres"
+},
+"0.2 R 0.010": {
+"use_external/enabled": true,
+"use_external/path": "res://Materials/suzuki_motorbike/0.2 R 0.010.tres"
+},
+"Carbon Black": {
+"use_external/enabled": true,
+"use_external/path": "res://Materials/suzuki_motorbike/Carbon Black.tres"
+},
+"Chrome 0.1": {
+"use_external/enabled": true,
+"use_external/path": "res://Materials/suzuki_motorbike/Chrome 0.1.tres"
+},
+"Gold 10K B3D Material": {
+"use_external/enabled": true,
+"use_external/path": "res://Materials/suzuki_motorbike/Gold 10K B3D Material.tres"
+},
+"Material.017": {
+"use_external/enabled": true,
+"use_external/path": "res://Materials/suzuki_motorbike/Material.017.tres"
+},
+"Material.021": {
+"use_external/enabled": true,
+"use_external/path": "res://Materials/suzuki_motorbike/Material.021.tres"
+},
+"Material.022": {
+"use_external/enabled": true,
+"use_external/path": "res://Materials/suzuki_motorbike/Material.022.tres"
+},
+"Material.024": {
+"use_external/enabled": true,
+"use_external/path": "res://Materials/suzuki_motorbike/Material.024.tres"
+},
+"black m": {
+"use_external/enabled": true,
+"use_external/path": "res://Materials/suzuki_motorbike/black m.tres"
+},
+"body": {
+"use_external/enabled": true,
+"use_external/path": "res://Materials/suzuki_motorbike/body.tres"
+},
+"dash.001": {
+"use_external/enabled": true,
+"use_external/path": "res://Materials/suzuki_motorbike/dash.001.tres"
+},
+"gum": {
+"use_external/enabled": true,
+"use_external/path": "res://Materials/suzuki_motorbike/gum.tres"
+},
+"silver.002": {
+"use_external/enabled": true,
+"use_external/path": "res://Materials/suzuki_motorbike/silver.002.tres"
+}
+}
+}
+gltf/embedded_image_handling=1
+blender/nodes/visible=0
+blender/nodes/punctual_lights=true
+blender/nodes/cameras=true
+blender/nodes/custom_properties=true
+blender/nodes/modifiers=1
+blender/meshes/colors=false
+blender/meshes/uvs=true
+blender/meshes/normals=true
+blender/meshes/tangents=true
+blender/meshes/skins=2
+blender/meshes/export_bones_deforming_mesh_only=false
+blender/materials/unpack_enabled=true
+blender/materials/export_materials=1
+blender/animation/limit_playback=true
+blender/animation/always_sample=true
+blender/animation/group_tracks=true
