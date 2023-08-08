@@ -18,7 +18,7 @@ radius = 0.346736
 height = 1.24328
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2ni4f"]
-radius = 0.352626
+radius = 0.304559
 height = 2.41795
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ecjq4"]
@@ -55,7 +55,7 @@ transform = Transform3D(1.91069e-15, 4.37114e-08, -1, 1, -4.37114e-08, 0, -4.371
 shape = SubResource("CapsuleShape3D_2ni4f")
 
 [node name="CollisionShape3D5" type="CollisionShape3D" parent="."]
-transform = Transform3D(1.91069e-15, 4.37114e-08, -1, 1, -4.37114e-08, 0, -4.37114e-08, -1, -4.37114e-08, -0.00323421, 0.51126, 0)
+transform = Transform3D(1.91069e-15, 4.37114e-08, -1, 1, -4.37114e-08, 0, -4.37114e-08, -1, -4.37114e-08, 0.0170519, 0.51126, 0)
 shape = SubResource("CapsuleShape3D_2ni4f")
 
 [node name="Camera3DSuzuki" type="Camera3D" parent="."]
@@ -94,14 +94,6 @@ light_volumetric_fog_energy = 0.0
 [node name="CollisionShape3DPlayerEnter" type="CollisionShape3D" parent="Area3PlayerEnter"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.00423431, 0.731949, 0)
 shape = SubResource("BoxShape3D_ecjq4")
-
-[node name="Area3DCrash" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.586655, 0)
-
-[node name="CollisionPolygon3DCrash" type="CollisionPolygon3D" parent="Area3DCrash"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.13644, 0.0114981)
-depth = 2.2
-polygon = PackedVector2Array(-0.0222536, 0.614661, -0.460205, 0.514834, -0.276502, -0.538079, 0.272724, -0.538079, 0.438239, 0.521274)
 
 [node name="VehicleWheel3DFront" type="VehicleWheel3D" parent="."]
 unique_name_in_owner = true
@@ -159,7 +151,6 @@ shape = SubResource("CapsuleShape3D_yj5bo")
 
 [connection signal="body_entered" from="Area3PlayerEnter" to="." method="_on_area_3d_body_entered"]
 [connection signal="body_exited" from="Area3PlayerEnter" to="." method="_on_area_3d_body_exited"]
-[connection signal="body_shape_entered" from="Area3DCrash" to="." method="_on_area_3d_crash_body_shape_entered"]
 [connection signal="body_entered" from="Area3DExitLeft" to="." method="_on_area_3d_exit_left_body_entered"]
 [connection signal="body_exited" from="Area3DExitLeft" to="." method="_on_area_3d_exit_left_body_exited"]
 [connection signal="body_entered" from="Area3DExitRight" to="." method="_on_area_3d_exit_right_body_entered"]

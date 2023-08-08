@@ -2,7 +2,7 @@ class_name CameraFPC extends Camera3D
 
 @export_range(0.1, 30, 0.05, "or_greater") var sens_mouse: float = 14
 @export_range(0.1, 30, 0.05, "or_greater") var sens_gamepad: float = 5
-@export_range(1, 30, 1) var swim_sideways_animation_factor: float = 10
+@export_range(1, 30, 1) var swim_sideways_animation_factor: float = 2
 
 var input_vector_last: Vector2 = Vector2(0, 0)
 
@@ -10,7 +10,7 @@ var look_dir: Vector2 # Input direction for look/aim
 
 var rot_z_target: float = 0
 # 1/20 * 90 degrees (PI/2 in radians) = 4.5 degrees
-var rot_z_factor: float = PI/2 / 20
+var rot_z_factor: float = PI/2 / 10
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

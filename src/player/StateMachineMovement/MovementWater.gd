@@ -8,7 +8,7 @@ class_name MovementWater extends State
 @export_range(1, 35, 1) var speed_fast: float = 10 # m/s
 @export_range(1, 35, 1) var speed_slow: float = 5 # m/s
 
-@export_range(10, 400, 1) var acceleration_water: float = 200
+@export_range(10, 400, 1) var acceleration_water: float = 20
 
 @export_range(0.01, 10, 1) var water_drag: float = 1 # the deceleration when the player jumps into water
 @export_range(-0.5, -4, -2) var water_depth_separator: float = -2 # the depth of water below that space bar will not jump but just swim upwards
@@ -25,6 +25,10 @@ class_name MovementWater extends State
 
 var grav: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var speed: float = speed_fast
+
+# direction of the hover-animation: UP or DOWN
+var animation_hover_vector: Vector3 = Vector3.DOWN
+var animation_hover_counter: int = 0
 
 enum JumpStates {
 	NO,      # not moving upwards/downwards
@@ -125,7 +129,31 @@ func jump(delta: float) -> Vector3:
 	return jump_vel
 
 func calc_jump_vel_nojump(delta: float) -> Vector3:
-	return Vector3.ZERO if player.is_on_floor() else jump_vel.move_toward(Vector3.ZERO, grav * delta)
+	var result: Vector3 = Vector3.ZERO
+	
+	if player.is_on_floor():
+		result = Vector3.ZERO
+	else:
+		result = jump_vel.move_toward(Vector3.ZERO, grav * delta)
+	
+	result = calc_animation_hover(result, delta)
+	return result
+
+func calc_animation_hover(result: Vector3, delta: float) -> Vector3:
+	if result.y == 0:
+		animation_hover_counter += 1
+		if animation_hover_counter > 100:
+			animation_hover_counter = 0
+			
+			if animation_hover_vector == Vector3.UP:
+				animation_hover_vector = Vector3.DOWN
+			elif animation_hover_vector == Vector3.DOWN:
+				animation_hover_vector = Vector3.UP
+		
+		result = jump_vel.move_toward(animation_hover_vector * swim_vertical_default/50, acceleration_water/2 * delta)
+	
+	return result
+
 func calc_jump_vel_default() -> Vector3:
 	return Vector3(0, sqrt(4 * jump_height_default * grav), 0)
 
