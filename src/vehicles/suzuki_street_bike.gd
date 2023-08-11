@@ -109,16 +109,14 @@ func calculate_lean_angle_theta() -> float:
 	# use our axis_left_right input to turn the wheel
 	var turn: float = axis_left_right / steerdamp
 	# smooth out our steering movements
-	var steer: float = lerp(steering, turn, .1)
+	steering = lerp(steering, turn, .1)
 	
 	# calculate turning radius
 	#var radius: float = ( wheel_distance / sin(steer) )
 	# calculate the needed inclination angle theta
 	#var theta: float = atan(speed**2 / (gravity * radius))
 	# or just put everything together in one formula
-	var theta: float = atan(speed**2 / (gravity * (wheel_distance / sin(steer))))
-	
-	steering = steer
+	var theta: float = atan(speed**2 / (gravity * (wheel_distance / sin(steering))))
 	
 	test.rotation.z = lerp(test.rotation.z, theta + PI/2, 1)
 	
