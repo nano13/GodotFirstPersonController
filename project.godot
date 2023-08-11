@@ -71,19 +71,23 @@ exit={
 }
 look_up={
 "deadzone": 0.1,
-"events": []
+"events": [Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":-1,"axis":3,"axis_value":-1.0,"script":null)
+]
 }
 look_down={
 "deadzone": 0.1,
-"events": []
+"events": [Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":-1,"axis":3,"axis_value":1.0,"script":null)
+]
 }
 look_right={
 "deadzone": 0.1,
-"events": []
+"events": [Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":-1,"axis":2,"axis_value":1.0,"script":null)
+]
 }
 look_left={
 "deadzone": 0.1,
-"events": []
+"events": [Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":-1,"axis":2,"axis_value":-1.0,"script":null)
+]
 }
 move_walk={
 "deadzone": 0.5,
@@ -170,16 +174,10 @@ vehicle_right={
 , Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":-1,"axis":0,"axis_value":1.0,"script":null)
 ]
 }
-vehicle_balance_left={
-"deadzone": 0.5,
-"events": [Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":-1,"axis":2,"axis_value":-1.0,"script":null)
-]
-}
-vehicle_balance_right={
-"deadzone": 0.5,
-"events": [Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":-1,"axis":2,"axis_value":1.0,"script":null)
-]
-}
+
+[physics]
+
+3d/run_on_separate_thread=true
 
 [rendering]
 

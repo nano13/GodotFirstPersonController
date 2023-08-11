@@ -55,6 +55,7 @@ func _integrate_forces(state):
 	var theta:float = calculate_lean_angle_theta()
 	
 	#lean_with_angular_velocity(theta)
+	smooth_angular_velocity(theta)
 	lean_with_center_of_mass(theta)
 
 func _physics_process(delta):
@@ -137,6 +138,10 @@ func lean_with_center_of_mass(theta: float) -> void:
 	
 	var diff: float = rotation.z - theta
 	center_of_mass.x = diff * 2
+
+func smooth_angular_velocity(theta: float) -> void:
+	angular_velocity.x = angular_velocity.x / 2
+	angular_velocity.z = angular_velocity.z / 2
 
 ## a very basic approach
 func lean_basic() -> void:

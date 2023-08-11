@@ -168,3 +168,5 @@ func process(delta):
 	elif not raycast_up.is_colliding():
 		player_capsule.shape.height += speed_crouching * delta
 	player_capsule.shape.height = clamp(player_capsule.shape.height, player_height_crouching, player_height_default)
+	
+	#print(player_capsule.shape.size)

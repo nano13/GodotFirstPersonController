@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://2r2xorepwlip"]
+[gd_scene load_steps=31 format=3 uid="uid://2r2xorepwlip"]
 
 [ext_resource type="PackedScene" uid="uid://cdk6hwb4hi2wc" path="res://scenes/player.tscn" id="1_drql4"]
 [ext_resource type="Material" uid="uid://gfpj33amwyea" path="res://materials/prototype_yellow_1.tres" id="2_jer0l"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://cygv0m43n3g65" path="res://addons/quaternius simple nature pack/static bodies/bush_1.tscn" id="6_ydy4d"]
 [ext_resource type="Material" uid="uid://bnvxmcn3ph3cv" path="res://materials/prototype_orange_1.tres" id="7_4i6or"]
 [ext_resource type="PackedScene" path="res://addons/quaternius simple nature pack/static bodies/bush_2.tscn" id="7_m3wpw"]
+[ext_resource type="Material" uid="uid://da0w7ghpwx1cs" path="res://materials/prototype_dark_1.tres" id="7_vxa2d"]
 [ext_resource type="Texture2D" uid="uid://c3o1ldhm8toe" path="res://addons/kenney_prototype_textures/blue/texture_01_light.png" id="8_s82cq"]
 [ext_resource type="PackedScene" uid="uid://hqlq0luk55aa" path="res://addons/quaternius simple nature pack/static bodies/bush_3.tscn" id="8_uuxaa"]
 [ext_resource type="PackedScene" uid="uid://bjxwye6xb55u8" path="res://addons/quaternius simple nature pack/static bodies/grass_1.tscn" id="9_cqle6"]
@@ -51,7 +52,7 @@ uv1_world_triplanar = true
 environment = SubResource("Environment_k5onh")
 
 [node name="DirectionalLight3d" type="DirectionalLight3D" parent="WorldEnvironment"]
-transform = Transform3D(-0.678961, 0.262875, -0.685499, -0.027831, 0.923814, 0.38183, 0.733646, 0.278326, -0.619918, 0, 6.83834, 0)
+transform = Transform3D(-0.684543, 0.465699, -0.560825, -0.0224233, 0.755521, 0.654741, 0.728627, 0.460774, -0.506745, 0, 6.83834, 0)
 shadow_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("1_drql4")]
@@ -99,7 +100,7 @@ material = ExtResource("2_jer0l")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.985, -15.4784, 4.68106)
 use_collision = true
 size = Vector3(30.3751, 0.5, 40.9754)
-material = SubResource("StandardMaterial3D_p85vg")
+material = ExtResource("7_vxa2d")
 
 [node name="Ramp" type="CSGBox3D" parent="Platform"]
 transform = Transform3D(0.999849, 0.00867385, 0.0150235, 0, 0.866025, -0.5, -0.0173477, 0.499925, 0.865895, 4, 1.28, -2.264)
@@ -341,29 +342,23 @@ use_collision = true
 size = Vector3(40.2481, 4.01511, 0.5)
 material = SubResource("StandardMaterial3D_p85vg")
 
-[node name="Wall11" type="CSGBox3D" parent="Platform"]
-transform = Transform3D(0.130319, 0, 0.991472, 0, 1, 0, -0.991472, 0, 0.130319, -283.065, 0.500264, -2.93798)
-use_collision = true
-size = Vector3(20, 3, 0.5)
-material = SubResource("StandardMaterial3D_p85vg")
-
 [node name="Wall7" type="CSGBox3D" parent="Platform"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 45.0261, -5.06696, 3.67925)
 use_collision = true
 size = Vector3(44.5768, 22.1497, 0.5)
-material = SubResource("StandardMaterial3D_p85vg")
+material = ExtResource("7_vxa2d")
 
 [node name="Wall9" type="CSGBox3D" parent="Platform"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 15.3671, -9.10938, 4.68374)
 use_collision = true
 size = Vector3(40.9486, 18.0678, 0.5)
-material = SubResource("StandardMaterial3D_p85vg")
+material = ExtResource("7_vxa2d")
 
 [node name="Wall14" type="CSGBox3D" parent="Platform"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.2228, -5.06912, -14.9972)
 use_collision = true
 size = Vector3(36.4858, 22.0984, 0.5)
-material = SubResource("StandardMaterial3D_p85vg")
+material = ExtResource("7_vxa2d")
 
 [node name="Wall8" type="CSGBox3D" parent="Platform"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -5, 1.5, -10)
@@ -399,7 +394,7 @@ material = ExtResource("7_4i6or")
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -244.598, 89.4037, 47.4011)
 use_collision = true
 size = Vector3(33.6035, 47.5694, 0.5)
-material = SubResource("StandardMaterial3D_p85vg")
+material = ExtResource("7_vxa2d")
 
 [node name="Wall17" type="CSGBox3D" parent="Platform"]
 transform = Transform3D(0.921816, -1.69438e-08, -0.387628, -0.387628, -4.02938e-08, -0.921816, -8.94573e-16, 1, -4.37114e-08, -161.075, 30.8439, 25.8094)
