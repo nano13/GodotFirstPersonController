@@ -20,39 +20,38 @@ var is_crashed: bool = false
 var is_recovering: bool = false
 
 var axis_left_right: float = 0
-var balance_left_right: float = 0
 
+# axis of the visual steering handle
 var steering_axis: Vector3 = Vector3(0.13, 1, 0).normalized()
 
 @onready var camera_moto: Camera3D = get_node("%Camera3DSuzuki")
-@onready var camera_fpc: Camera3D = get_node("%CShapeHead/CameraFPC")
+@onready var camera_fpc: Camera3D = get_node("/root/World/Player/CShapeHead/CameraFPC")
 
-@onready var player: CharacterBody3D = get_node("%Player")
+@onready var player: CharacterBody3D = get_node("/root/World/Player")
 
 @onready var player_head: CollisionShape3D = get_node("%CollisionShape3DHead")
 
 @onready var wheel_front: VehicleWheel3D = get_node("%VehicleWheel3DFront")
 @onready var wheel_rear: VehicleWheel3D = get_node("%VehicleWheel3DRear")
 @onready var steering_fork: Node3D = get_node("%suzuki_motorbike_steering")
-@onready var steering_wheel: VehicleWheel3D = get_node("%VehicleWheel3DSteering")
 
 @onready var exit_shape_left: CollisionShape3D = get_node("%CollisionShape3DExitLeft")
 @onready var exit_shape_right: CollisionShape3D = get_node("%CollisionShape3DExitRight")
+@onready var exit_shape_top: CollisionShape3D = get_node("%CollisionShape3DExitTop")
 
 # only allow leaving the vehicle/spawning the player here if there is nothing in the way
 var exit_shape_left_body_count: int = 0
 var exit_shape_right_body_count: int = 0
-
-@onready var test: CSGCylinder3D = get_node("Node3D/CSGCylinder3Daiaaa")
+var exit_shape_top_body_count: int = 0
 
 func _ready():
 	pass
-	#mass = 300
 
 func _integrate_forces(state):
 	# only move the bike when we are "sitting on it"
 	#if camera_moto.current:
-	var theta:float = calculate_lean_angle_theta()
+	calculate_steering()
+	var theta: float = calculate_lean_angle_theta()
 	
 	#lean_with_angular_velocity(theta)
 	smooth_angular_velocity(theta)
@@ -66,7 +65,6 @@ func _physics_process(delta):
 	# but we need to use it there, so we put it into a variable here
 	if camera_moto.current:
 		axis_left_right = Input.get_axis("vehicle_right", "vehicle_left")
-		balance_left_right = Input.get_axis("vehicle_balance_left", "vehicle_balance_right")
 	
 	if is_recovering:
 		recover_motorbike()
@@ -102,7 +100,8 @@ func disable_player_head_if_no_player():
 	else:
 		player_head.disabled = false
 
-func calculate_lean_angle_theta() -> float:
+## calculate the maximum allowed steering angle for the given speed while keeping the leaning angle theta small enough to make sense
+func calculate_steering_() -> void:
 	# to make it more realistic, the faster we go, the less we can turn the wheel
 	var speed: float = linear_velocity.length()
 	var steerdamp: float = clamp(speed/10, 2, 50)
@@ -110,6 +109,36 @@ func calculate_lean_angle_theta() -> float:
 	var turn: float = axis_left_right / steerdamp
 	# smooth out our steering movements
 	steering = lerp(steering, turn, .1)
+
+## calculate the maximum allowed steering angle for the given speed while keeping the leaning angle theta small enough to make sense
+func calculate_steering() -> void:
+	var speed: float = linear_velocity.length()
+	var steerdamp: float = clamp(speed/10, 2, 50)
+	# use our axis_left_right input to turn the wheel
+	var turn: float = axis_left_right
+	# go into the curve a bit more gently, but come out with normal steering speed
+	if not axis_left_right == 0:
+		turn = axis_left_right / steerdamp
+	
+	# smooth out our steering movements
+	var steer: float = lerp(steering, turn, .1)
+	
+	# apparently steerdamp is not enough / does not work well enough
+	# therefore we additionally limit the steering to not having a theta larger than theta_max
+	var theta_max: float = PI/4
+	var steer_max: float = asin((gravity * tan(theta_max) * wheel_distance) / speed**2)
+	
+	if steer > steer_max:
+		steering = steer_max
+	elif steer < -steer_max:
+		steering = -steer_max
+	else:
+		steering = steer
+
+## using some basic physics calculations to get out of the wheel distance and the steering angle the turn radius
+## and out of that and the speed the needed inclination angle theta
+func calculate_lean_angle_theta() -> float:
+	var speed: float = linear_velocity.length()
 	
 	# calculate turning radius
 	#var radius: float = ( wheel_distance / sin(steer) )
@@ -117,8 +146,6 @@ func calculate_lean_angle_theta() -> float:
 	#var theta: float = atan(speed**2 / (gravity * radius))
 	# or just put everything together in one formula
 	var theta: float = atan(speed**2 / (gravity * (wheel_distance / sin(steering))))
-	
-	test.rotation.z = lerp(test.rotation.z, theta + PI/2, 1)
 	
 	return theta
 
@@ -129,17 +156,20 @@ func lean_with_angular_velocity(theta: float) -> void:
 	center_of_mass.x = rotation.z
 
 func lean_with_center_of_mass(theta: float) -> void:
-	#print("relation: ", theta / rotation.z)
-	#print("diff: ", rotation.z - theta)
-	
+	# this would be enough to balance the bike, but we also need to factor in theta
 	#center_of_mass.x = rotation.z
 	
 	var diff: float = rotation.z - theta
 	center_of_mass.x = diff * 2
 
 func smooth_angular_velocity(theta: float) -> void:
-	angular_velocity.x = angular_velocity.x / 2
-	angular_velocity.z = angular_velocity.z / 2
+	var direction: Vector3 = Vector3(linear_velocity.x, 0, linear_velocity.z).normalized()
+	
+	var avel: Vector2 = Vector2(angular_velocity.x, angular_velocity.z).normalized()
+	
+	var damping: float = 1.2
+	angular_velocity = Vector3(angular_velocity.x / 2, angular_velocity.y, angular_velocity.z / 2)
+	
 
 ## a very basic approach
 func lean_basic() -> void:
@@ -209,6 +239,9 @@ func exit_motorbike():
 	elif exit_shape_right_body_count == 0:
 		player.position = exit_shape_right.global_position
 		exited = true
+	elif exit_shape_top_body_count == 0:
+		player.position = exit_shape_top.global_position
+		exited = true
 	
 	if exited:
 		# look roughly in the same direction (y-axis only) as before on the vehicle
@@ -269,3 +302,10 @@ func _on_area_3d_exit_right_body_entered(body):
 
 func _on_area_3d_exit_right_body_exited(body):
 	exit_shape_right_body_count -= 1
+
+func _on_area_3d_exit_top_body_entered(body):
+	if not body.name == "Suzuki_Street_Bike":
+		exit_shape_top_body_count += 1
+
+func _on_area_3d_exit_top_body_exited(body):
+	exit_shape_top_body_count -= 1

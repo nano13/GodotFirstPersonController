@@ -119,18 +119,6 @@ damping_relaxation = 0.9
 [node name="suzuki_motorbike_wheel_rear" parent="VehicleWheel3DRear" instance=ExtResource("11_ui01t")]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, -0.362516, 0)
 
-[node name="Node3D" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.705231, 0)
-
-[node name="CSGCylinder3Daiaaa" type="CSGCylinder3D" parent="Node3D"]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.0484695, 0, -2.73975)
-height = 0.125611
-sides = 64
-
-[node name="CSGBox3D" type="CSGBox3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0321121, 0.0462341, -2.21082)
-size = Vector3(1, 0.164876, 0.252648)
-
 [node name="suzuki_motorbike_steering" parent="." instance=ExtResource("11_3pe4u")]
 unique_name_in_owner = true
 transform = Transform3D(1.5, 0, 0, 0, 1.38118, -0.585109, 0, 0.585109, 1.38118, -0.00925636, 0.0376132, -0.992588)
@@ -149,11 +137,19 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.69134, 0.892952, 0.151627)
 shape = SubResource("CapsuleShape3D_yj5bo")
 
+[node name="Area3DExitTop" type="Area3D" parent="."]
+
+[node name="CollisionShape3DExitTop" type="CollisionShape3D" parent="Area3DExitTop"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00924844, 2.19485, 0.284074)
+shape = SubResource("CapsuleShape3D_yj5bo")
+
 [connection signal="body_entered" from="Area3PlayerEnter" to="." method="_on_area_3d_body_entered"]
 [connection signal="body_exited" from="Area3PlayerEnter" to="." method="_on_area_3d_body_exited"]
 [connection signal="body_entered" from="Area3DExitLeft" to="." method="_on_area_3d_exit_left_body_entered"]
 [connection signal="body_exited" from="Area3DExitLeft" to="." method="_on_area_3d_exit_left_body_exited"]
 [connection signal="body_entered" from="Area3DExitRight" to="." method="_on_area_3d_exit_right_body_entered"]
 [connection signal="body_exited" from="Area3DExitRight" to="." method="_on_area_3d_exit_right_body_exited"]
+[connection signal="body_entered" from="Area3DExitTop" to="." method="_on_area_3d_exit_top_body_entered"]
+[connection signal="body_exited" from="Area3DExitTop" to="." method="_on_area_3d_exit_top_body_exited"]
 
 [editable path="suzuki_motorbike"]

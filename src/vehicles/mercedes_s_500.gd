@@ -20,9 +20,9 @@ var is_recovering: bool = false
 var axis_left_right: float = 0
 
 @onready var camera_car: Camera3D = get_node("%Camera3DMercedesS500")
-@onready var camera_fpc: Camera3D = get_node("%CameraFPC")
+@onready var camera_fpc: Camera3D = get_node("/root/World/Player/CShapeHead/CameraFPC")
 
-@onready var player: CharacterBody3D = get_node("%Player")
+@onready var player: CharacterBody3D = get_node("/root/World/Player")
 
 @onready var wheel_front_left: VehicleWheel3D = get_node("%VehicleWheel3DMercedesS500FrontLeft")
 @onready var wheel_front_right: VehicleWheel3D = get_node("%VehicleWheel3DMercedesS500FrontRight")
