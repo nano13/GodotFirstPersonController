@@ -167,8 +167,8 @@ func smooth_angular_velocity(theta: float) -> void:
 	
 	var avel: Vector2 = Vector2(angular_velocity.x, angular_velocity.z).normalized()
 	
-	var damping: float = 1.2
-	angular_velocity = Vector3(angular_velocity.x / 2, angular_velocity.y, angular_velocity.z / 2)
+	var damping: float = 1.6
+	angular_velocity = Vector3(angular_velocity.x / damping, angular_velocity.y, angular_velocity.z / damping)
 	
 
 ## a very basic approach
