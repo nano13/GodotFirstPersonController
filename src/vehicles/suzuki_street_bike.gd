@@ -113,7 +113,7 @@ func calculate_steering_() -> void:
 ## calculate the maximum allowed steering angle for the given speed while keeping the leaning angle theta small enough to make sense
 func calculate_steering() -> void:
 	var speed: float = linear_velocity.length()
-	var steerdamp: float = clamp(speed/10, 2, 50)
+	var steerdamp: float = clamp(speed/40, 2, 50)
 	# use our axis_left_right input to turn the wheel
 	var turn: float = axis_left_right
 	# go into the curve a bit more gently, but come out with normal steering speed
